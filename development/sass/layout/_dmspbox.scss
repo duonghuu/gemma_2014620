@@ -1,0 +1,64 @@
+.dmspbox{
+    float: left;
+    width: percentage(270/$max-width);
+    position: relative;
+    &:hover {
+        .dmsp-container{
+            display: block;
+        }
+    }
+  .tit{
+        @include setFont(14px, #fff, 700);
+        @include grid($display: flex, $align-items: center, $justify-content: center);
+        background-color: $theme2-color;
+        margin: 0;
+        text-transform: uppercase;
+        cursor: pointer;
+        height: 46px;
+        i{
+            margin-right: 10px;
+        }
+    }
+    .dmsp-container{
+        display: none;
+        &>ul{
+            display: block;
+        }
+        ul{
+            @extend %sub-menu-list;
+            background-color: #fbfbfb;
+            min-width: 100%; 
+            li{
+                position: static;
+                border-bottom: 1px solid #e6e6e6;
+                a{
+                    @include setFont(14px, #333, 400, $font-menu);
+                    @include grid(flex, $flex-wrap: wrap, $justify-content: null, 
+                      $align-items: center, $gutter: null);
+                    @include transition(padding-left .2s linear);
+                    text-decoration: none;
+                    padding: 7px 0px 7px 30px;
+                    white-space: nowrap;
+                    @include on-event(){
+                        padding-left: 35px;
+                        color: $theme-color;
+                    };
+                    @include p-el(before, $el-width: null, $el-height: null){
+                      @include setFont(7px, inherit, 700, $font-awesome);
+                      @include absolute($left: 15px);
+                      content: "\f009";
+                    }
+                }
+                @include on-event(){
+                    &>ul{
+                        display: block;
+                    }
+                }
+                ul {
+                    left: 100%;
+                    top: 0;
+                }
+            }
+        }
+    }
+}

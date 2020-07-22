@@ -1,0 +1,128 @@
+%slider-item-1 {
+  display: block;
+  position: relative;
+}
+%slide-text-color{
+  color: #fff;
+}
+@-webkit-keyframes fadeInUpSD {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(100px);
+    transform: translateY(100px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+.sec-slider{
+    background-color: #f2f2f2;
+    padding: 10px 0;
+    .slider__wrap{
+        @include grid(flex, $flex-wrap: wrap, $justify-content: space-between, 
+          $align-items: null, $gutter: null);
+    }
+}
+#slideshow {
+    width: percentage(920/$max-width);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    .slideshow-slider-main{
+        @include clearfix;
+        .slideshow-slider-item {
+            &.slick-active{
+                & > section {
+                    .slider-text-bg{
+                        .slider-text{
+                            // animation-name: fadeInUpSD;
+                            // animation-duration: 1s; 
+                            // opacity: 1;
+                        }
+                    }
+                }
+            };
+            & > section {
+                @extend %slider-item-1;
+                .slider-link{
+                    display: block;
+                    position: relative;
+                    padding-top: percentage(420/920);
+                    img {
+                        @extend %img-fill;
+                    }
+                }
+                .slider-text-bg{
+                    // @include grid(flex, $justify-content: null, 
+                    //   $align-items: center);
+                    // @include absolute(0,0,0,0);
+                    .slider-text{
+                        // width: 100%;
+                        // max-width: 780px;
+                        // margin: 0 auto;
+                        // opacity: 0;
+                        // text-align: center;
+                        &__welcome{
+                            // @include setFont(15px, #fff);
+                            // margin-bottom: 0;
+                        }
+                        &__ten{
+                            // @include setFont(50px, #fff, 400, 'SFUDinEngAlt');
+                            // @include text-stroke(2px #fff); 
+                            // @include text-shadow(0,1px,7px,rgba(0,0,0,.53));
+                            // @include line-clamp($font-size: 50px, $line-height: 1.1, $lines-to-show: 1, $max-height: false);
+                            // text-transform: uppercase;
+                            // margin-bottom: 20px;
+                        }
+                        &__ngaytao{
+                            // @include setFont(15px, #bec4c6, 500);
+                            //  margin: 10px 0;
+                        }
+                        &__mota{
+                            // @include setFont(20px, #fff, 400, $font-title);
+                            // @include line-clamp($font-size: 20px, $line-height: 1.5, $lines-to-show: 2, $max-height: true);
+                            // margin-bottom: 20px;
+                            // text-transform: uppercase;
+                           // @include text-shadow(2px,2px,2px,rgba(0,0,0,.25));
+                        }
+                        &__button{
+                            &.slider-button{
+                                // @include grid(flex, $justify-content: center);
+                                a{
+                                    // @include setFont(22px, #fff, 400, 'SFUDinEngAlt');
+                                    // @include grid(inline-flex, $flex-wrap: wrap, $justify-content: space-between, 
+                                    //   $align-items: center, $gutter: null);
+                                    // height: 50px;
+                                    // text-transform: uppercase;
+                                    // background-color: $theme-color;
+                                    // padding: 0 24px;
+                                    // border-radius: 5px;
+                                }
+                                .slider-button__xemthem{
+                                    
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+.web-slider-main {
+    @include clearfix;
+    .web-slider-item{
+        a{
+            display: block;
+            img {
+                width: 100%;
+            }
+        }
+    }
+}

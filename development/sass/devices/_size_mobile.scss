@@ -1,0 +1,16 @@
+@media screen 
+	and (max-width: $device_size_mobile) {
+        @include setCommon;
+        @include setSanphamnoibat;
+        @include setNewsletter;
+        // @include setLeftRightMobile;
+        @include setSlider;
+        @include setHeader;
+        @include setMenu;
+        @include setProductColumnMobile($p_col: 12, $p_gutter: $product-gutter);
+        @include setCopyright;
+        @include setFooter;
+        @include setContact; 
+        @include setProductMobile;  
+        @include setNewColumnMobile($p_col: 12, $p_gutter: 0);  
+}

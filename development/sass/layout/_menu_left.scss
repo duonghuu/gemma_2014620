@@ -1,0 +1,89 @@
+.box-menu-slider{
+    border: 1px solid #f6f6f6;
+    width: percentage(270/$max-width);
+    position: relative;
+    z-index: 2;
+    ul{
+        @extend %reset-list;
+    }
+    &__title{
+        @include grid(flex, $flex-wrap: null, $justify-content: space-between, 
+          $align-items: null, $gutter: null);
+        background-color: $theme-color;
+        .fa-bars{
+            @include grid(inline-flex, $flex-wrap: null, $justify-content: center, 
+              $align-items: center, $gutter: null);
+            @include box(50px, 50px);
+            background-color: #a80000;
+            color: #fff;
+        }
+    }
+    &__right{
+        @include grid(flex, $flex-wrap: null, $justify-content: center, 
+          $align-items: center, $gutter: null);
+        @include flex(1);
+        &-text{
+            @include setFont(15px, #fff, 700, $font-text);
+            text-transform: uppercase;
+        }
+        .fa-angle-down{
+            color: #fff;
+            margin-left: 7px;
+        }
+    }
+}
+.menu-left{
+    background-color: #fff;
+    border: 1px solid #ebebeb;
+    height: 100%;
+    max-height: 370px;
+    overflow-y: scroll;
+    &__box{
+        position: relative; 
+    }
+    li{
+        padding: 12px 15px;
+        position: static;
+        
+        a{
+            @include setFont(15px, #000, 400);
+            @include grid(flex, $flex-wrap: nowrap, $justify-content: null,
+              $align-items: center, $gutter: null);
+            text-decoration: none;
+            padding-left: 30px;
+            position: relative;
+            figure{
+                // @include box(30px,30px);
+                // @include absolute($left: 7px, $top: 7px);
+                // margin: 0 5px 0 0;
+                // img{
+                //     @extend %img-fill;
+                //     object-fit: scale-down;
+                //     object-position: center center;
+                // }
+            }
+
+            @include p-el(before, $el-width: 7px, $el-height: 7px){
+              @include bg("right.jpg",$background-repeat: no-repeat,$background-size: null,$background-position: 0 0);
+              left: 10px;
+            }
+            &:hover{
+                color: $theme-color;
+            }
+        }
+        &:hover{
+            & > ul{
+                display: block;
+            }
+        }
+        ul{
+            @extend %sub-menu-list;
+            left: calc(100% - 5px);
+            top: 0;
+            width: 100%;
+        }
+        @include doubly(){
+            @include bg("line.png",$background-repeat: no-repeat,$background-size: null,$background-position: center top);
+        }
+    }
+}

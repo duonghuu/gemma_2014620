@@ -1,0 +1,53 @@
+.newsletter{
+    background-color: #e6e6e6;
+    padding: 28px 0;
+    &__wrap{
+        @include grid(flex, $flex-wrap: wrap, $justify-content: space-between, 
+          $align-items: center, $gutter: null);
+    }
+    &__left{
+        @include flex(1);
+        @include grid(inline-flex, $flex-wrap: wrap, $justify-content: null, 
+          $align-items: center, $gutter: null);
+    }
+    &__title{
+        @include setFont(20px, #000, 400, $font-text);
+        text-transform: uppercase;
+        strong{
+            @include setFont(24px, $theme-color, 700, $font-text);
+        }
+    }
+}
+div#dknt {
+    @include flex(1);
+    background-color: #fff;
+    overflow: hidden;
+    max-width: 490px;
+    margin-left: 20px;
+}
+.maildesc{
+    // @include setFont(12px, #fff);
+    // line-height: 1.5;
+}
+form#frm_dknt {
+    @include grid($display: flex,$justify-content: space-between, $flex-wrap: wrap);
+    overflow: hidden;
+    input[type='text'] {
+        @include setFont(14px, #000); 
+        @include flex(1);
+        height: 54px;
+        padding: 0 1em;
+        background: #fff;
+        border: 1px solid #fff;
+    }
+    #submit_nhantin {
+        @include grid($display: inline-flex,$align-items: center,$justify-content: center);
+        @include setFont(22px, #fff, 700);
+        @include box(54px,54px);
+        background-color: $theme-color;
+        text-transform: uppercase;
+        cursor: pointer;
+        i{
+        }
+    }
+}

@@ -1,0 +1,89 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the header of the site/application.
+// -----------------------------------------------------------------------------
+.header{
+  &-top{
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #e6e6e6;
+    &__wrap{
+    @include grid(flex, $flex-wrap: wrap, $justify-content: space-between, 
+      $align-items: center, $gutter: null);
+    min-height: 40px;
+    }
+  }
+  &-slogan{
+    @include setFont(15px, #000, 700, $font-text);
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+  &-nav{
+    &-item{
+      @include grid(inline-flex, $flex-wrap: null, $justify-content: null, 
+        $align-items: center, $gutter: null);
+      @include setFont(13px, #000, 400, $font-text);
+      position: relative;
+      padding-left: 15px;
+      @include p-el(before, $el-width: 5px, $el-height: 5px){
+        border-radius: 100%;
+        background-color: #898989;
+        left: 0;
+        
+      }
+      @include doubly(){
+        margin-left: 35px;
+      }
+    }
+  }
+  &-bot{
+    &__wrap{
+      @include grid(flex, $flex-wrap: wrap, $justify-content: space-between, 
+        $align-items: center, $gutter: null);
+    }
+  }
+  
+  &__hotline{
+
+    position: relative;
+    padding-left: 50px;
+    &-img{
+      @include absolute($left: 0px, $top: 0px);
+    }
+    &-desc{
+      @include setFont(13px, #000, 400, $font-text);
+      display: block;
+      width: 100%;
+    }
+    &-number{
+      @include setFont(20px, $theme-color, 700, $font-text);
+      line-height: 1;
+      display: block;
+      width: 100%;
+    }
+  }
+  @include media("<=mobile"){
+    &__logo{
+      &-img{
+        height: 70px;
+      }
+    }
+    &__hotline{
+      padding-left: 0;
+      &-img{
+        display: none;
+      }
+    }
+    &-slogan{
+      width: 100%;
+text-align: center;
+    }
+    &-nav{
+text-align: center;
+      width: 100%;
+      &-item{
+        @include doubly(){
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}

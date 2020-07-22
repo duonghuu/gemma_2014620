@@ -1,0 +1,260 @@
+
+@media only screen and (max-width: 1024px) {
+	body {
+	background: none;
+	min-width: 320px;
+}
+html {
+	-webkit-text-size-adjust: 100%;
+}
+.statsDetailed {
+	top: 60px;
+}
+.withCheck thead tr td:first-child {
+	width: 37px;
+}
+.oneTwo, .oneTwo:first-child, .oneThree, .oneThree:first-child, .oneFour, oneFour:first-child, .twoOne, .twoOne:first-child {
+	width: auto;
+	float: none;
+	margin: 0;
+	clear: both;
+}
+.loginWrapper .formRow > label {
+	float: left;
+	padding: 4px 0;
+}
+.loginInput {
+	margin-right: 4px;
+}
+.dnone {
+	display: none;
+}
+.loginPage {
+	min-height: 100wh;
+}
+}
+
+@media only screen and (max-width: 767px) {
+	#leftSide, .welcome {
+	display: none;
+}
+	.errorPage .welcome {
+	display: block;
+}
+.errorPage .userNav {
+	margin-right: 0!important;
+	float: right;
+}
+div.menu_mobi
+{
+	float: left;
+    height: 37px;
+    width: 37px;
+    line-height: 37px;
+    font-size: 20px;
+    margin-right: 5px;
+	display:block;
+	z-index:99999;
+	position:relative;
+}
+.welcome
+{
+	display: block !important;
+    margin-top: 5px;
+    margin-left: 0;
+}
+.widget .title h6
+{
+	display:none;
+}
+.timkiem input
+{
+	width:150px;
+}
+#sale_price, #price, #code_pro
+{
+	width:94% !important;
+}
+.loginWrapper {
+
+    min-width: 280px;
+	width:auto;
+    background: url(../media/images/bg_login2.png) left top no-repeat;
+}
+}
+@media only screen and (min-width: 980px) and (max-width: 1280px) {
+.oneTwo {
+	width: 48%;
+}
+.wrapper {
+	margin: 0 4%;
+}
+.oneThree {
+	width: 31%;
+	margin-left: 3.5%;
+}
+.twoOne {
+	width: 65.5%;
+}
+.oneFour {
+	width: 22%;
+	margin-left: 4%;
+}
+.formRow .formRight {
+	width: 72%;
+}
+.chzn-container {
+	width: 80%!important;
+}
+.SRC_NumBox {
+	width: 10%;
+}
+.SRC_CodeBox {
+	width: 90%;
+}
+}
+
+
+/* Fixing login panel for mobile devices */
+
+@media only screen and (max-width: 480px) {
+.loginWrapper {
+	margin: -119px 0 0 -141px;
+}
+.loginWrapper .widget {
+	width: 282px;
+}
+.loginWrapper .formRow > label {
+	float: left;
+	padding: 4px 0;
+}
+.loginInput {
+	width: 150px;
+	margin-right: 4px;
+}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+.wrapper {
+	margin: 0 5%;
+}
+.pageTitle {
+	max-width: 45%;
+}
+.oneTwo, .oneTwo:first-child, .oneThree, .oneThree:first-child, .oneFour, oneFour:first-child, .twoOne, .twoOne:first-child {
+	width: auto;
+	float: none;
+	margin: 0;
+	clear: both;
+	width: 100%;
+}
+table thead td span {
+	background-position: 100%;
+}
+.formRow {
+	padding: 14px 14px 18px 14px;
+}
+.formRow .formRight {
+	width: 100%;
+	float: none;
+	margin-right: 14px;
+}
+.form input[type="text"], .form input[type="password"], .form textarea {
+	width: 97%;
+}
+.formRow .inputImg {
+	top: auto;
+	bottom: 26px;
+}
+.formRow > label {
+	float: none;
+	padding: 0 0 12px 0;
+}
+.req {
+	float: none;
+	margin-left: 0;
+	display: inline;
+}
+.chzn-container {
+	width: 100%!important;
+}
+.topNav {
+	display: inline-block;
+	text-align: center;
+}
+.userNav {
+	/*margin-right: 214px!important;*/
+}
+.welcome {
+	display: none;
+}
+.dataTables_filter input[type="text"] {
+	width: 110px!important;
+}
+.controlB ul li {
+	margin: 4px 1%;
+	width: 30%;
+}
+.sItem {
+	width: 186px;
+}
+.horControlB ul li {
+	margin: 2px;
+	width: 46%;
+}
+table thead td span {
+	display: none;
+}
+.sTable thead td.sortCol {
+	text-align: center;
+	padding: 3px 14px 2px 14px;
+}
+}
+
+@media only screen and (max-width: 599px) {
+	#rightSide {
+	padding-bottom: 74px;
+}
+.userNav ul li span {
+	display: none;
+}
+.topNav {
+	background: url(../images/backgrounds/topnavBg.png) repeat;
+	margin: 0;
+	padding: 0;
+}
+.userNav {
+
+	margin-right: 0;
+	border: none;
+}
+.userNav > ul {
+	border: none;
+}
+.userNav > ul li {
+	float: none;
+	display: inline-block;
+	margin: 3px 0 3px -4px
+}
+.userNav > ul li a {
+	float: none;
+	padding: 9px 14px 8px 14px;
+	margin: 0;
+}
+.userNav > ul li img {
+	margin: 0;
+	float: none;
+	padding: 0;
+	display: inline;
+}
+ul.userDropdown, ul.userMessage {
+	left: -53px;
+}
+ul.userDropdown li, ul.userMessage li {
+	margin: 0;
+	text-align: left;
+}
+ul.userDropdown li a, ul.userMessage li a {
+	padding: 6px 10px 7px 32px;
+}
+}

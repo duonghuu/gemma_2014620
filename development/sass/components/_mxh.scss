@@ -1,0 +1,38 @@
+.mxh{
+    $this: &;
+    @include grid($display: inline-flex, $align-items: center);
+    position: relative;
+    span{
+        @include setFont(12px, #fff, 400, $font-text);
+    }
+    a{
+        @include grid($display: inline-flex, $justify-content: center,
+         $align-items: center);  
+        margin-left: 10px;
+        img{
+            @include transition(all 1s ease);  
+            height: 43px;
+            object-fit: scale-down;
+            &:hover{
+                transform: rotate(360deg);
+            }
+        }
+            
+        @include doubly(){
+        }
+    }
+    &--ft{
+        margin: 10px 0;
+        span{
+            @include setFont(15px, #fff, 400, $font-text);
+        }
+        a{
+            img{
+                height: 35px;
+            }
+            @include doubly(){
+                margin-left: 6px;
+            }
+        }
+    }
+}

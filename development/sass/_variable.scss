@@ -1,0 +1,99 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+/// Container's maximum width
+/// @type Length
+$max-width: 1200 !default;
+$browser-context: 16;
+/* ======================== FONTS ======================== */
+$font-MYRIADPRO                         : 'MYRIADPRO';
+$font-iCielGrandma                      : 'iCielGrandma';
+$font-SFUSchadowBTBlackCondensed        : 'SFUSchadowBTBlackCondensed';
+$font-UTM-Androgyne                     : 'Conv_UTM Androgyne';
+$font-UTM-Magnesium                     : 'UTM-Magnesium';
+$font-UTMAvo                            : 'UTMAvo';
+$font-UTM-Loko                          : 'UTM-Loko';
+$font-SVN-Lobster                       : 'SVN-Lobster';
+$font-SVN-Poppins                       : 'SVN-Poppins';
+$font-UTMHelvetIns                      : 'UTMHelvetIns';
+$font-UTMYenTu                          : 'UTMYenTu';
+$font-UTMImpact                         : 'UTMImpact';
+$font-UTMBeautifulCaps                  : 'UTMBeautifulCaps';
+$font-SFUFuturaBook                     : 'SFUFuturaBook';
+$font-SFUFuturaHeavy                    : 'SFUFuturaHeavy';
+$font-SFUHelveticaBold                    : 'SFUHelveticaBold';
+$font-SFUBelleRegular                    : 'SFUBelleRegular';
+$font-iCielBCCubano-Normal               : 'iCielBCCubano-Normal';
+$font-JosefinSans                       : 'Josefin Sans', sans-serif;
+$font-roboto-mono                       : 'Roboto Mono', monospace;
+$font-open-sans                         : 'Open Sans', sans-serif;
+$font-roboto-condensed                  : 'Roboto Condensed', sans-serif;
+$font-roboto                            : 'Roboto', sans-serif;
+$font-barlow-semi-condensed             : 'Barlow Semi Condensed', sans-serif;
+$font-montserrat                        : 'Montserrat', sans-serif;
+$font-muli                              : 'Muli', sans-serif;
+$font-oswald                            : 'Oswald', sans-serif;
+$font-nunito                            : 'Nunito', sans-serif;
+$font-quicksand                         : 'Quicksand', sans-serif;
+$font-lora                              : 'Lora', serif;
+
+
+$font-title             : 'Arial';
+$font-text              : 'Arial';
+$font-awesome           : 'Font Awesome 5 Free';
+$font-second            : 'Arial';
+$product-ratio          : percentage(4/6);
+$product-gutter         : percentage(20/$max-width);
+/* ======================== HEADER ======================== */
+$header_top-bg          : #f2f2f2;
+$header-bg              : #fff;
+$breadcrumb-bg          : #f7f6f6;
+/* ======================== MENU ======================== */
+$font-menu              : 'Arial';
+$menu_item_hover-color  : #f80109;
+$menu-bg                : #d4bc7d;
+$valak-bg               : #d4bc7d;
+$menu_item-bg           : transparent;
+$menu_item_hover-bg     : #ffb400; 
+/* ======================== FOOTER ======================== */
+$copyright-bg       : #8e0000;
+$footer-bg          : #d70707;
+$theme-color        : #d70707;
+$theme2-color        : #f2f2f2;
+$map-height         : 410 * 1px;
+/* ======================== URL ======================== */
+$font-url           : 'css/fonts/';
+$font-awesome-url   : 'css/fontawesome/webfonts/';
+$images-url         : 'images/';
+/// Regular font family
+/// @type List
+$text-font-stack: 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
+
+/// Code (monospace) font family
+/// @type List
+$code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace !default;
+
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+
+
+
+/// Relative or absolute URL where all assets are served from
+/// @type String
+/// @example scss - When using a CDN
+///   $base-url: 'http://cdn.example.com/assets/';
+$base-url: '/' !default;
+
+$device_size_mobile   : 425px;
+$device_size_small    : 768px;
+$device_size_medium   : 992px;
+$device_size_large    : 1200px;
+
+$MB: "'<=mobile','screen'";
+$XS: "'>mobile','<small','screen'";
+$SM: "'>=small','<medium','screen'";
+$MD: "'>=medium','<large','screen'";
+$LG: "'>=large','screen'";

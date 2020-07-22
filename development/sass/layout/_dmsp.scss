@@ -1,0 +1,45 @@
+.dm-sp{
+  #danhmuc{
+    ul{
+      @extend %reset-list;
+      li{
+        position: relative;
+        a{
+          @include grid($display: flex, $align-items: center);
+          @include setFont(15px, #000, 400);
+          display: block;
+          line-height: 1;
+          position: relative;
+          padding: 15px 15px 15px 30px;
+          @include transition(all 0.2s ease);
+          &:before{
+            content: "";
+            display: inline-block;
+            @include box(4px, 4px, 100%);
+            @include absolute($left: 15px, $top: 20px);
+            background-color: #b5b5b5;
+            margin-right: 10px;
+          }
+          @include on-event(){
+            color: $theme-color;
+          };
+        }
+        ul{
+          display: none;
+          @include absolute($left: 100%, $top: 0px);
+          min-width: 100%;
+          border: 1px solid #ebebeb;
+          background-color: #fff;
+        }
+        @include doubly(){
+          border-top: 1px solid #ebebeb;
+        };
+        @include on-event(){
+          &>ul{
+            display: block;
+          }
+        };
+      }
+    }
+  }
+}
