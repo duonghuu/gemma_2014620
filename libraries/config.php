@@ -61,7 +61,7 @@ $login_name = $config_url;
 $config['lang']=array(''=>'Tiếng Việt');
 
 date_default_timezone_set('Asia/Ho_Chi_Minh');
-$config['reponsive'] = true;
+$config['reponsive'] = false;
 $config['company'] = array("tt_giomo"=>"Giờ mở","tt_zalo"=>"Zalo","tt_messenger"=>"Messenger");
 $config['salt_sta'] = '@nina';
 $config['salt_end'] = '@#LIQIDCT1^';

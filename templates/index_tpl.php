@@ -1,128 +1,41 @@
-<?php
-    /* Set the date */
-    if($_GET['datepicker']!=''){
-        $date = strtotime($_GET['datepicker']);
-    } else {
-        $date = strtotime(date('y-m-d'));
-    } 
-
-    $day = date('d', $date);
-    $month = date('m', $date);
-    $year = date('Y', $date);
-    $firstDay = mktime(0,0,0,$month, 1, $year);
-    $title = strftime('%B', $firstDay);
-    $dayOfWeek = date('D', $firstDay);
-    $daysInMonth = cal_days_in_month(0, $month, $year);
-    /* Get the name of the week days */
-    $timestamp = strtotime('next Sunday');
-    $weekDays = array();
-    for ($i = 0; $i < 7; $i++) {
-        $weekDays[] = strftime('%a', $timestamp);
-        $timestamp = strtotime('+1 day', $timestamp);
-    }
-    $blank = date('w', strtotime("{$year}-{$month}-01"));
-?>
-
-<script type="text/javascript">
-$(function () {
-    $('#container').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Thống kê truy cập tháng : <?php echo $month ?> - <?php echo $year ?> '
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            type: 'category',
-            labels: {
-                rotation: -45,
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Arial'
-                }
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Số người truy cập'
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        tooltip: {
-            pointFormat: 'Tổng : <b>{point.y:.1f} Lượt truy cập</b>'
-        },
-        series: [{
-            name: 'Population',
-            data: [
-            <?php for($i = 1; $i <= $daysInMonth; $i++):
-
-                $k = $i+1;
-                $begin = strtotime($year.'-'.$month.'-'.$i);
-                // $end = strtotime($year.'-'.$month.'-'.$k);
-                $end = $begin+86400;
-                $query = "SELECT COUNT(*) AS todayrecord FROM counter WHERE tm>='$begin' and tm<'$end' "; 
-                $todayrc  = get_fetch($query); 
-                $today_visitors     =    $todayrc['todayrecord']; 
-
-            ?>
-                ['<?=$i?>', <?=$today_visitors?>],
-            <?php endfor; ?>
-
-
-            ],
-            dataLabels: {
-                enabled: true,
-                rotation: -90,
-                color: '#FFFFFF',
-                align: 'right',
-                format: '{point.y:.1f}', // one decimal
-                y: 10, // 10 pixels down from the top
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Arial'
-                }
-            }
-        }]
-    });
-    $( "#datepicker" ).datepicker({
-      dateFormat: 'yy-mm-dd'
-    });
-});
-</script>
-
-<div class="wrapper">
-<form name="supplier" id="validate" class="form" action="index.php" method="get" enctype="multipart/form-data">
-
-<div class="widget">
-   <div class="title"><h6>Chào mừng bạn đến với Administrator - HỆ THỐNG QUẢN TRỊ NỘI DUNG WEBSITE</h6><div class="clear"></div></div>
-
-   <div class="clear"></div>
-
-   <div class="formRow">
-        <label>Thống kê theo tháng</label>
-        <div class="formRight">
-                <input type="text" id="datepicker" name="datepicker" placeholder="yyyy-mm-dd">
-                <input type="submit" class="blueB xemthongke" onclick="TreeFilterChanged2(); return false;" value="Xem thống kê" />
-        </div>
-        <div class="clear"></div>
-   </div>
-
-   <div class="clear"></div>
-
-   <div id="container" style="width: 100%; height: 400px; margin: 0 auto"></div>
-   <div class="clear"></div>
-   <!-- 2 columns widgets -->
-    
+<div class="text-center mt-4 mb-4">
+  <img src="images/logoimg2.png" alt="logo">
 </div>
-<div class="clear"></div>
-<?php echo $today = date("F j, Y, g:i");  ?>
-</form></div>
-<script src="js/highcharts/highcharts.js"></script>
-<script src="js/highcharts/modules/exporting.js"></script>
-
+<div class="user-panel">
+  <div class="user-panel-item user-panel-item--one">
+    <a href="index.php?com=khachhang&act=man" class="user-panel-item__url">
+      <div class="user-panel-item__head">
+        <i class="fas fa-user"></i>
+        <span>Xem chi tiết</span>
+      </div>
+      <h3>Quản lý khách hàng</h3>
+    </a>
+  </div>
+  <div class="user-panel-item user-panel-item--two">
+    <a href="index.php?com=product&act=man&type=dichvu" class="user-panel-item__url">
+      <div class="user-panel-item__head">
+        <i class="fas fa-user-tag"></i>
+        <span>Xem chi tiết</span>
+      </div>
+      <h3>Quản lý sử dụng dịch vụ</h3>
+    </a>
+  </div>
+  <div class="user-panel-item user-panel-item--three">
+    <a href="index.php?com=order&act=man" class="user-panel-item__url">
+      <div class="user-panel-item__head">
+        <i class="fas fa-newspaper"></i>
+        <span>Xem chi tiết</span>
+      </div>
+      <h3>Báo cáo và hoạt động</h3>
+    </a>
+  </div>
+  <div class="user-panel-item user-panel-item--four">
+    <a href="index.php?com=user&act=admin_edit" class="user-panel-item__url">
+      <div class="user-panel-item__head">
+        <i class="fas fa-cog"></i>
+        <span>Xem chi tiết</span>
+      </div>
+      <h3>Quản trị Admin</h3>
+    </a>
+  </div>
+</div>

@@ -111,6 +111,14 @@ function fns_Rand_digit($min,$max,$num)
 }
 function get_items(){
     global $d, $items, $url_link,$totalRows , $pageSize, $offset,$paging,$urlcu;
+    // var search_hoten = $("#search_hoten").val();
+    // var search_email = $("#search_email").val();
+    // var search_dienthoai = $("#search_dienthoai").val();
+    // var search_diachi = $("#search_diachi").val();
+    // var id_danhmuc = $("#id_danhmuc").val();
+    // var datefm = document.getElementById("datefm").value;   
+    // var dateto = document.getElementById("dateto").value;
+
     if($_REQUEST['type']!='')
     {
         $where.=" and type='".$_REQUEST['type']."'";
@@ -131,9 +139,45 @@ function get_items(){
     {
         $where.=" and id_item=".(int)$_REQUEST['id_item']."";
     }
-    if($_REQUEST['key']!='')
+    if($_REQUEST['hoten']!='')
     {
-        $where.=" and ten like '%".$_REQUEST['key']."%'";
+        $where.=" and (ten like '%".$_REQUEST['hoten']."%')";
+    }
+    if($_REQUEST['email']!='')
+    {
+        $where.=" and (email like '%".$_REQUEST['email']."%')";
+    }
+    if($_REQUEST['dienthoai']!='')
+    {
+        $where.=" and (dienthoai like '%".$_REQUEST['dienthoai']."%')";
+    }
+    if($_REQUEST['diachi']!='')
+    {
+        $where.=" and (diachi like '%".$_REQUEST['diachi']."%')";
+    }
+    if($_GET["ngaybd"]!=''){
+        $ngaybatdau = $_GET["ngaybd"];      
+        $Ngay_arr = explode("/",$ngaybatdau); // array(17,11,2010)
+        if (count($Ngay_arr)==3) {
+            $ngay = $Ngay_arr[0]; //17
+            $thang = $Ngay_arr[1]; //11
+            $nam = $Ngay_arr[2]; //2010
+            if (checkdate($thang,$ngay,$nam)==false){ $coloi=true; $error_ngaysinh = "Bạn nhập chưa đúng ngày<br>";} 
+            else $ngaybatdau=$nam."-".$thang."-".$ngay;
+        }   
+        $where.=" and ngaytao>=".strtotime($ngaybatdau)." ";
+    }
+    if($_GET["ngaykt"]!=''){
+        $ngayketthuc = $_GET["ngaykt"];     
+        $Ngay_arr = explode("/",$ngayketthuc); // array(17,11,2010)
+        if (count($Ngay_arr)==3) {
+            $ngay = $Ngay_arr[0]; //17
+            $thang = $Ngay_arr[1]; //11
+            $nam = $Ngay_arr[2]; //2010
+            if (checkdate($thang,$ngay,$nam)==false){ $coloi=true; $error_ngaysinh = "Bạn nhập chưa đúng ngày<br>";} 
+            else $ngayketthuc=$nam."-".$thang."-".$ngay;
+        }   
+        $where.=" and ngaytao<=".strtotime($ngayketthuc)." ";
     }
     $where.= " order by id_danhmuc,id_list,id_cat,id_item,stt asc,id desc";
     $dem=get_fetch("select count(id) AS numrows from #_product where id<>0 $where");
@@ -267,15 +311,7 @@ function save_item(){
     $data['id_list'] = (int)$_POST['id_list'];
     $data['id_cat'] = (int)$_POST['id_cat'];
     $data['id_item'] = (int)$_POST['id_item'];
-    $data['id_nhasanxuat'] = (int)$_POST['id_nhasanxuat'];
-    $data['id_city'] = (int)$_POST['id_city'];
-    $data['id_dist'] = (int)$_POST['id_dist'];
-    $data['id_ward'] = (int)$_POST['id_ward'];
-    $data['id_street'] = (int)$_POST['id_street'];
-    $data['id_huong'] = (int)($_POST['id_huong']);
-    $data['id_hientrang'] = (int)$_POST['id_hientrang'];
-    $data['thuonghieu'] = (int)$_POST['thuonghieu'];
-    $data['soluong'] = (int)$_POST['soluong'];
+    $data['id_khachhang'] = (int)$_POST['id_khachhang'];
     if($_POST['tenkhongdau']=='') {
         $data['tenkhongdau'] = changeTitle($data['ten']);
     }else{
@@ -283,80 +319,17 @@ function save_item(){
     }
     $data['masp'] = $_POST['masp'];
     $data['gia'] = str_replace(',','',$_POST['gia']);
-    $data['dientich'] = $_POST['dientich'];
-    $data['tag'] = $_POST['tag'];
-    $data['toado'] = $_POST['toado'];
-    $data['mattien'] = $_POST['mattien'];
     $data['giakm'] = str_replace(',','',$_POST['giakm']);
-    $data['vitri'] = $_POST['vitri'];
-    $data['phaply'] = $_POST['phaply'];
     $data['stt'] = $_POST['stt'];
-    $data['size'] = trim($_POST['size']);
-    $data['mausac'] = trim($_POST['mausac']);
-    //mảng id màu sắc sản phẩm
-    $arr_mausac = array();
-    if(!empty($_POST['id_size'])){
-        foreach($_POST['id_size'] as $record){
-            $temp = explode('_', $record);
-            if(count($temp)>1){ // là có id list và id cat
-                $arr_mausac[] = $temp[0];
-            }else{
-                $arr_mausac[] = $temp[0];
-            }
-        }
-    }
-    $arr_mausac = array_unique($arr_mausac); // loại bỏ giá trị trùng
-    $data['size2'] = implode(',', $arr_mausac);
-    //mảng id màu sắc sản phẩm
-    $arr_mausac = array();
-    if(!empty($_POST['id_mausac'])){
-        foreach($_POST['id_mausac'] as $record){
-            $temp = explode('_', $record);
-            if(count($temp)>1){ // là có id list và id cat
-                $arr_mausac[] = $temp[0];
-            }else{
-                $arr_mausac[] = $temp[0];
-            }
-        }
-    }
-    $arr_mausac = array_unique($arr_mausac); // loại bỏ giá trị trùng
-    $data['mausac2'] = implode(',', $arr_mausac);
     $data['hienthi'] = isset($_POST['hienthi']) ? 1 : 0;
-    $data['spmoi'] = isset($_POST['spmoi']) ? 1 : 0;
-    $data['tieubieu'] = isset($_POST['tieubieu']) ? 1 : 0;
-    $data['spbanchay'] = isset($_POST['spbanchay']) ? 1 : 0;
     $data['noibat'] = isset($_POST['noibat']) ? 1 : 0;
-
-    /*loc nang cao*/
-    $arr_danhmuc = array();
-    $arr_list = array();
-    if(!empty($_POST['thuoctinh_danhmuc'])){
-        foreach($_POST['thuoctinh_danhmuc'] as $record){
-            $temp = explode('_', $record);
-                if(count($temp)>1){ // là có id list và id cat
-                    $arr_danhmuc[] = $temp[0];
-                    $arr_list[] = $temp[1];
-                }else{
-                    $arr_danhmuc[] = $temp[0];
-                }
-            }
-        }
-
-        $arr_danhmuc = array_unique($arr_danhmuc); // loại bỏ giá trị trùng
-        $arr_list = array_unique($arr_list); // loại bỏ giá trị trùng
-
-        $data['thuoctinh_danhmuc'] = implode(',', $arr_danhmuc);    
-        $data['thuoctinh_list'] = implode(',', $arr_list);
-        /*loc nang cao*/
-        
-        $data['title'] = $_POST['title'];
+    $data['title'] = $_POST['title'];
     $data['keywords'] = $_POST['keywords'];
     $data['type'] = $_POST['type'];
     $data['description'] = $_POST['description'];
     $data['h1'] = $_POST['h1'];
-    $data['h2'] = $_POST['h2'];
-    $data['h3'] = $_POST['h3'];
-    $data['diachi'] = $_POST['diachi'];
+    $data['dienthoai'] = $_POST['dienthoai'];
+    $data['email'] = $_POST['email'];
     if($id){
         if($photo = upload_image("file", _format_duoihinh, _upload_sanpham,$file_name)){
             //image_fix_orientation(_upload_sanpham.$photo);

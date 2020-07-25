@@ -14,10 +14,10 @@ $config['ck'] = array();
 @define ( _ext_thumb , '' );
 switch($type){
 //-------------san pham------------------
-	case 'san-pham':
+	case 'dichvu':
 	switch($act){
 		case 'danhmuc':
-		$config['type'] = array('ten','seo','noibat','hinhanh');
+		$config['type'] = array('ten');
 		$config['title'] = array('noibat'=>"Nổi bật",'tieubieu'=>"Hiện menu",'hinhanh2'=>"Icon");
 		@define ( _width_thumb , 350 );
 		@define ( _height_thumb , 590 );
@@ -49,12 +49,11 @@ switch($type){
 		break;
 
 		default:
-		$config['type'] = array('seo','ten','hinhanh','noidung',"noibat",'danhmuc','list'
-			,'gia','giakm','tieubieu','noibat','spmoi','spbanchay',"mota2");
+		$config['type'] = array('ten',"mota","danhmuc");
 		$config['ck'] = array('mota2');
 		$config['title'] = array('tieubieu'=>"Khuyến mãi",'noibat'=>"Nổi bật",
 			'spmoi'=>"Mới nhất",'spbanchay'=>"Bán chạy","toado"=>"Iframe google map",
-			"mota2"=>"Thông số",'mattien'=>"Phòng ngủ","dientich"=>"Diện tích","thuonghieu"=>"Thương hiệu",
+			"mota2"=>"Thông số","mota"=>"Ghi chú",'mattien'=>"Phòng ngủ","dientich"=>"Diện tích","thuonghieu"=>"Thương hiệu",
 			"vitri"=>"Giá bằng chữ");
 		@define ( _width_thumb , 600 );
 		@define ( _height_thumb , 400 );
@@ -310,11 +309,11 @@ switch($type){
 		default:
 		// $config['type'] = array('ten','mota');
 		$config['title'] = array('mota'=>'Tiêu đề nhỏ');
-		@define ( _width_thumb , 190 );
-		@define ( _height_thumb , 95);
-		@define ( _style_thumb , 2 );
-		@define ( _width_thumb2 , 190 );
-		@define ( _height_thumb2 , 95 );
+		@define ( _width_thumb , 140 );
+		@define ( _height_thumb , 140);
+		@define ( _style_thumb , 3 );
+		@define ( _width_thumb2 , 140 );
+		@define ( _height_thumb2 , 140 );
 		break;
 	}
 	break;

@@ -153,6 +153,9 @@ switch($com){
 	case 'user':
 	$source = "user";
 	break;
+	case 'khachhang':
+	$source = "khachhang";
+	break;
 	case 'meta':
 	$source = "meta";
 	break;
@@ -365,19 +368,20 @@ if($source!="") {
 				});
 			})
 		</script>
-		<div id="leftSide">
-			<?php include _template."menu_tpl.php";?>
-		</div>
-		<!-- Right side -->
-		<div id="rightSide">
-			<!-- Top fixed navigation -->
-			<div class="topNav">
-				<?php include _template."header_tpl.php";?>
+		<div class="left-right-box">
+			<div id="leftSide">
+				<?php include _template."menu_tpl.php";?>
 			</div>
-			<div class="wrapper">
-				<?php include _template.$template."_tpl.php";?>
-			</div></div>
-			<div class="clear"></div>
+			<!-- Right side -->
+			<div id="rightSide">
+				<!-- Top fixed navigation -->
+				<div class="topNav">
+					<?php include _template."header_tpl.php";?>
+				</div>
+				<div class="wrapper">
+					<?php include _template.$template."_tpl.php";?>
+				</div></div>
+		</div>
 		</body>
 	<?php }else {?>
 		<body class="nobg loginPage">

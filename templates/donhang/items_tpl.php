@@ -133,20 +133,24 @@ function tinhtrang($i=0)
 
 ?>
 
-
+<div class="main-title">
+  <i class="fas fa-user"></i>Báo cáo và hoạt động
+</div>
+<?php /* 
 <div class="control_frm" style="margin-top:25px;">
     <div class="bc">
-        <ul id="breadcrumbs" class="breadcrumbs">
-        	            <li><a href="index.php?com=order&act=man"><span>Đơn hàng</span></a></li>
-                                    <li class="current"><a href="#" onclick="return false;">Tất cả</a></li>
-        </ul>
+      <ul id="breadcrumbs" class="breadcrumbs">
+       <li><a href="index.php?com=order&act=man"><span>Báo cáo và hoạt động</span></a></li>
+       <li class="current"><a href="#" onclick="return false;">Tất cả</a></li>
+     </ul>
         <div class="clear"></div>
     </div>
-</div>
+</div> 
+*/?>
 
 <script src="js/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript">
-  $(document).ready(function() {
+  $(document).ready(function(e) {
     $(".datetimepicker").datetimepicker({
       yearOffset:222,
       lang:'ch',
@@ -156,8 +160,54 @@ function tinhtrang($i=0)
       minDate:'-1970/01/02', // yesterday is minimum date
       maxDate:'+1970/01/02' // and tommorow is maximum date calendar
     });
+    if (e.keyCode == 13) {
+      timkiem();
+    }
   });
+
+  function timkiem()
+  {
+      // var a = $('input.key').val();
+      // if(a=='Tên...') a='';
+      // window.location ="index.php?com=product&act=man&type=<?=$_REQUEST['type']?>&key="+a;
+      // return true;
+      var search_hoten = $("#search_hoten").val();
+      var search_email = $("#search_email").val();
+      var search_dienthoai = $("#search_dienthoai").val();
+      var search_diachi = $("#search_diachi").val();
+      var search_nhanvien = $("#search_nhanvien").val();
+      var search_nguoithu = $("#search_nguoithu").val();
+      var datefm = document.getElementById("datefm").value;   
+      var dateto = document.getElementById("dateto").value;
+      search_string = "";
+      if(search_hoten != ""){
+        search_string += "&hoten="+search_hoten;
+      }
+      if(search_email != ""){
+        search_string += "&email="+search_email;
+      }
+      if(search_dienthoai != ""){
+        search_string += "&dienthoai="+search_dienthoai;
+      }
+      if(search_diachi != ""){
+        search_string += "&diachi="+search_diachi;
+      }
+      if(search_nhanvien != ""){
+        search_string += "&nhanvien="+search_nhanvien;
+      }
+      if(search_nguoithu != ""){
+        search_string += "&nguoithu="+search_nguoithu;
+      }
+      if(datefm != ""){
+        search_string += "&datefm="+datefm;
+      }
+      if(dateto != ""){
+        search_string += "&dateto="+dateto;
+      }
+      window.location.href="index.php?com=order&act=man"+search_string;
+  }
 </script>
+<?php /* 
 <div class="widget">
   <div class="titlee" style="padding-bottom:5px;">
 
@@ -215,7 +265,8 @@ function tinhtrang($i=0)
     <div class="clear"></div>
     </div><!--end tim kiem-->
   </div>
-</div>
+</div> 
+*/?>
 <script language="javascript">
 	function CheckDelete(l){
 		if(confirm('Bạn có chắc muốn xoá đơn hàng này?'))
@@ -223,18 +274,114 @@ function tinhtrang($i=0)
 			location.href = l;	
 		}
 	}	
-	
-					
 </script>
 <form name="f" id="f" method="post">
+
+  <div class="main-search">
+    <div class="main-search__title">Điều kiện lọc</div>
+    <div class="main-search__body">
+    <div class="d-flex flex-wrap">
+      <div class="form-group">
+        <input type="text" placeholder="Từ ngày.." name="ngaybd" id="datefm" class="form-control">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Đến ngày.." name="ngaykt" id="dateto" class="form-control">
+      </div>
+      <div class="form-group">
+        <select name="httt" class="form-control">
+        <option value="0">Hình thức thanh toán</option>
+          <?php 
+            $sql="select id,ten from #_httt order by id";
+            $d->query($sql);
+            $httt_sr = $d->result_array();
+            for ($i=0,$count=count($httt_sr); $i < $count; $i++) { 
+          ?>
+            <option value="<?=$httt_sr[$i]["id"]?>" <?php if($httt_sr[$i]["id"]==$_GET['httt']) echo "selected='selected'";?>>
+              <?=$httt_sr[$i]["ten"]?>
+            </option>
+          <?php }?>
+        </select>
+        
+      </div>
+      <div class="form-group">
+        <select name="tinhtrang" class="form-control">
+        <option value="0">Tình trạng</option>
+          <?php 
+            $sql="select id,trangthai from #_tinhtrang order by id";
+            $d->query($sql);
+            $tinhtrang_sr = $d->result_array();
+            for ($i=0,$count=count($tinhtrang_sr); $i < $count; $i++) { 
+          ?>
+            <option value="<?=$tinhtrang_sr[$i]["id"]?>" <?php if($tinhtrang_sr[$i]["id"]==$_GET['tinhtrang']) echo "selected='selected'";?> >
+              <?=$tinhtrang_sr[$i]["trangthai"]?>
+            </option>
+          <?php }?>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between flex-wrap">
+      <div class="form-group">
+        <input type="text" placeholder="Họ và Tên" name="search_hoten" id="search_hoten" class="form-control">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Số điện thoại" name="search_dienthoai" id="search_dienthoai" class="form-control">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Email" name="search_email" id="search_email" class="form-control">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Địa chỉ" name="search_diachi" id="search_diachi" class="form-control">
+      </div>
+    </div>
+    <div class="d-flex justify-content-between flex-wrap">
+      <div class="form-group">
+        <input type="text" placeholder="Nhân viên kinh doanh" name="search_nhanvien" id="search_nhanvien" class="form-control">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Người thu" name="search_nguoithu" id="search_nguoithu" class="form-control">
+      </div>
+    </div>
+    </div>
+    <div class="main-search__foot d-flex">
+      <button class="btn btn-primary main-search__btn mx-auto" type="button" onclick="timkiem();">Tìm kiếm <i class="fas fa-search"></i></button>
+    </div>
+
+  </div>
 <div class="control_frm" style="margin-top:0;">
   	<div style="float:left;">
-    	
+        <input type="button" class="blueB" value="Thêm" onclick="location.href='index.php?com=order&act=add'" />
         <input type="button" class="blueB" value="Xoá" id="xoahet" />
+        <?php 
+        $search_string = "";
+        if($_GET["hoten"] != ""){
+          $search_string .= "&hoten=".$_GET["hoten"];
+        }
+        if($_GET["email"] != ""){
+          $search_string .= "&email=".$_GET["email"];
+        }
+        if($_GET["dienthoai"] != ""){
+          $search_string .= "&dienthoai=".$_GET["dienthoai"];
+        }
+        if($_GET["diachi"] != ""){
+          $search_string .= "&diachi=".$_GET["diachi"];
+        }
+        if($_GET["nhanvien"] != ""){
+          $search_string .= "&nhanvien=".$_GET["nhanvien"];
+        }
+        if($_GET["nguoithu"] != ""){
+          $search_string .= "&nguoithu=".$_GET["nguoithu"];
+        }
+        if($_GET["datefm"] != ""){
+          $search_string .= "&datefm=".$_GET["datefm"];
+        }
+        if($_GET["dateto"] != ""){
+          $search_string .= "&dateto=".$_GET["dateto"];
+        }
+         ?>
+        <input type="button" class="blueB" value="Xuất file" onclick="location.href='index.php?com=order&act=exportkhachhang<?= $search_string ?>'" />
     </div>  
 
 </div>
-
 <div class="widget">
   <div class="title"><span class="titleIcon">
     <input type="checkbox" id="titleCheck" name="titleCheck" />
@@ -245,10 +392,13 @@ function tinhtrang($i=0)
     <thead>
       <tr>
         <td></td>
-       <td class="sortCol" width="120"><div>Mã đơn hàng<span></span></div></td>     
         <td class="sortCol"><div>Họ tên<span></span></div></td>
-        <td class="sortCol" width="150"><div>Ngày đặt<span></span></div></td>
-        <td width="150">Số tiền</td>
+        <td width="150">Email</td>
+        <td width="150">Điện thoại</td>
+        <td width="150">Nhân viên KD</td>
+        <td width="150">Giá trị</td>
+        <td width="150">Member</td>
+        <td class="sortCol" width="150"><div>Ngày thanh toán<span></span></div></td>
         <td width="150">Tình trạng</td>
         <td width="150">Thao tác</td>
       </tr>
@@ -264,18 +414,18 @@ function tinhtrang($i=0)
        <td>
             <input type="checkbox" name="chon" value="<?=$items[$i]['id']?>" id="check<?=$i?>" />
         </td>
+        <td> <?=$items[$i]['hoten']?> </td> 
+        <td> <?=$items[$i]['email']?> </td>
+        <td> <?=$items[$i]['dienthoai']?> </td>
+        <td> <?=$items[$i]['nhanvien']?> </td>
+        <td align="center"><?=number_format($items[$i]['gia'],0, ',', '.')?>&nbsp;vnđ
+        </td>
+        <td> <?=$items[$i]['member']?> </td>
         <td align="center">
-            <?=$items[$i]['madonhang']?>
-        </td> 
-        <td>
-               <?=$items[$i]['hoten']?>
-                </td>
-                <td align="center">
-               <?=date('d/m/Y',$items[$i]['ngaytao'])?>
-                </td>
+         <?=date('d/m/Y',$items[$i]['ngaythanhtoan'])?>
+       </td>
 
-                <td align="center"><?=number_format($items[$i]['tonggia'],0, ',', '.')?>&nbsp;vnđ
-                </td>
+                
       
         <?php /* <td align="center">
                  <?php
@@ -306,9 +456,9 @@ function tinhtrang($i=0)
         <td align="center">
            <?php 
 		   		$sql="select trangthai from #_tinhtrang where id= '".$items[$i]['tinhtrang']."' ";
-				$d->query($sql);
-				$result=$d->fetch_array();
-				echo $result['trangthai'];
+  				$d->query($sql);
+  				$result=$d->fetch_array();
+  				echo $result['trangthai'];
 		   ?>
         </td>
        

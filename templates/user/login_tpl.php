@@ -1,3 +1,4 @@
+<?php /* 
 <!-- Top fixed navigation -->
 <div class="topNav">
     <div class="wrapper">
@@ -8,25 +9,27 @@
         </div>
         <div class="clear"></div>
     </div>
-</div>
+</div> 
+*/?>
 
 <!-- Main content wrapper -->
 <div class="loginWrapper">
     <!--<div class="loginLogo"><img src="images/logo.png" alt="" /></div>-->
     <div class="widget" id="loginForm">
-        <div class="title"><img src="images/icons/dark/files.png" alt="" class="titleIcon" /><h6>Đăng nhập</h6></div>
+        <div class="title"><h6>phần mềm quản lý gemmatravel</h6></div>
         <form action="index.php?com=user&act=login" id="validate" class="form" method="post">
+            <div class="loginForm__image">
+                <figure class="loginForm__figure"></figure>
+            </div>
             <fieldset>
                 <div class="formRow">
                     <label for="login">Tên đăng nhập:</label>
                     <div class="loginInput"><input type="text" name="username" class="validate[required]" id="username" /></div>
-                    <div class="clear"></div>
                 </div>
 
                 <div class="formRow">
                     <label for="pass">Mật khẩu:</label>
                     <div class="loginInput"><input type="password" name="password" class="validate[required]" id="pass" /></div>
-                    <div class="clear"></div>
                 </div>
 
                 <div class="loginControl">

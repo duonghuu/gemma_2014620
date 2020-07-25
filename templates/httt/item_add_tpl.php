@@ -92,7 +92,7 @@
 	            <div class="clear"></div>
            </div> 
 
-           <div class="formRow">
+           <div class="formRow none">
             <label>Nội dung chính: <img src="./images/question-button.png" alt="Chọn loại"  class="icon_que tipS" original-title="Viết nội dung chính"> </label>
             <div class="formRight"><textarea class="ck_editor" name="noidung<?=$key?>" id="noidung<?=$key?>" rows="8" cols="60"><?=@$item['noidung'.$key]?></textarea>
             </div>

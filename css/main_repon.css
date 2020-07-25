@@ -52,7 +52,8 @@ body {
 }
 .formRow .note{ float: left; color: #999; padding:4px 0px 0px 10px; font-size: 11px;}
 body {
-	background: url(../images/backgrounds/bodyBg.png) repeat-y 0 0;
+	/* background: url(../images/backgrounds/bodyBg.png) repeat-y 0 0; */
+	background: #996600;
 }
 .item_trich{
 background: #fff none repeat scroll 0 0;
@@ -249,7 +250,7 @@ p {
 	background: url(../images/contentDivider.png) repeat-x;
 }
 .sidebarSep {
-	background: url(../images/sidebarSep.png) no-repeat 50%;
+	/* background: url(../images/sidebarSep.png) no-repeat 50%; */
 	height: 8px;
 	width: 100%;
 	margin: 16px 0;
@@ -306,10 +307,10 @@ div.baophu
 	display:none;
 }
 #leftSide {
-	background:#2e373f;
-	margin: 0 2px;
+	background: #996600;
+	/* margin: 0 2px; */
 	float: left;
-	width: 216px;
+	width: 250px;
 	padding: 0 1px;
 	padding-bottom: 60px;
 	position:relative;
@@ -318,6 +319,7 @@ div.baophu
 #rightSide {
 	padding-bottom: 62px;
 	overflow: hidden;
+	background: #f9f9f9;
 }
 .scroll {
 	height: 182px;
@@ -573,15 +575,17 @@ color: #b3b3b3;
 .topNav {
 	background: url(../images/backgrounds/topnavBg.png) repeat-x;
 	display: block;
-	color: #eeeeee;
+	color: #333;
 	margin: 0 0 0 -2px;
 	padding: 3px 0;
 	width: 100%;
 	z-index: 999;
+	background: #f4f4f4;
+	border-bottom: 1px solid #e1e1e1;
 }
 .userNav {
-	border-left: 1px solid #39454f;
-	border-right: 1px solid #39454f;
+	/* border-left: 1px solid #39454f; */
+	/* border-right: 1px solid #39454f; */
 	margin-right: -2px;
 }
 .welcome {
@@ -610,8 +614,8 @@ ul.menu_header li a
 	font-size: 11px;
 }
 .userNav ul {
-	border-left: 1px solid #39454f;
-	border-right: 1px solid #39454f;
+	/* border-left: 1px solid #39454f; */
+	/* border-right: 1px solid #39454f; */
 	margin-right: -1px;
 }
 .userNav ul li {
@@ -619,23 +623,23 @@ ul.menu_header li a
 	float: left !important;
 	position: relative;
 	cursor: pointer;
-	border-left: 1px solid #1c262b;
-	border-right: 1px solid #1c262b;
+	/* border-left: 1px solid #1c262b; */
+	/* border-right: 1px solid #1c262b; */
 	margin-left: -1px;
 }
 .userNav ul li a {
-	color: #eeeeee;
+	color: #333;
 	text-decoration: none;
 	display: block;
 	float: left;
-	border-left: 1px solid #39454f;
-	border-right: 1px solid #39454f;
+	/* border-left: 1px solid #39454f; */
+	/* border-right: 1px solid #39454f; */
 }
 .userNav ul li a:hover {
-	border-left: 1px solid #293138;
-	border-right: 1px solid #293138;
-	background-color: #293138;
-	color:#fff;
+	/* border-left: 1px solid #293138; */
+	/* border-right: 1px solid #293138; */
+	/* background-color: #293138; */
+	/* color:#fff; */
 }
 .userNav ul li span {
 	display: block;
@@ -771,13 +775,13 @@ ul.userDropdown li a:hover, ul.userMessage li a:hover {
 /* === Left navigation classes === */
 
 .logo {
-	border-top: 1px solid #3b4751;
+	/* border-top: 1px solid #3b4751; */
 	margin: 3px 1px 0 1px;
 	padding: 20px 39px;
 	text-align:center;
 }
 .nav {
-	border-top: 1px solid #1c252b;
+	/* border-top: 1px solid #1c252b; */
 	display: block;
 }
 .nav li {
@@ -785,18 +789,21 @@ ul.userDropdown li a:hover, ul.userMessage li a:hover {
 }
 .nav li a {
 	display: block;
-	background: url(../images/backgrounds/navItemBg.png) repeat-x 0 0;
-	border-bottom: 1px solid #1c252b;
-	border-top: 1px solid #404950;
+	/* background: url(../images/backgrounds/navItemBg.png) repeat-x 0 0; */
+	/* border-bottom: 1px solid #1c252b; */
+	/* border-top: 1px solid #404950; */
 	padding: 0;
 }
 .nav li a:hover {
 	background-position: 0 -43px;
-	border-top: 1px solid #516271;
+	/* border-top: 1px solid #516271; */
 }
 .nav li a.active, .nav li a:active {
 	background-position: 0 -86px;
-	border-top: 1px solid #657d92;
+	/* border-top: 1px solid #657d92; */
+}
+.nav li a.activemenu {
+	background: #ff803b;
 }
 .nav li a span {
 	padding: 10px 0 12px 42px;
@@ -805,10 +812,11 @@ ul.userDropdown li a:hover, ul.userMessage li a:hover {
 	text-transform: uppercase;
 	font-weight: bold;
 	color: #efefef;
+	font-size: 12px;
 }
 .nav li a strong {
 	background: #1b232a;
-	display: block;
+	display: none;
 	position: absolute;
 	right: 10px;
 	padding: 0 7px;
@@ -829,33 +837,33 @@ ul.userDropdown li a:hover, ul.userMessage li a:hover {
 	border-bottom: none;
 }
 ul.sub {
-	border-bottom: 1px solid #1a2126;
+	/* border-bottom: 1px solid #1a2126; */
 	border-top: none;
-	background: url(../images/backgrounds/subNavBg.jpg);
+	/* background: url(../images/backgrounds/subNavBg.jpg); */
 }
 ul.sub li {
-	border-bottom: 1px solid #1c252a;
-	border-top: 1px solid #30373d;
+	/* border-bottom: 1px solid #1c252a; */
+	/* border-top: 1px solid #30373d; */
 }
 ul.sub li.this {
-	background: url(../images/backgrounds/subNavBg_active.jpg);
-	border-bottom: 1px solid #192226;
-	border-top: 1px solid #192226;
+	/* background: url(../images/backgrounds/subNavBg_active.jpg); */
+	/* border-bottom: 1px solid #192226; */
+	/* border-top: 1px solid #192226; */
 }
 ul.sub li.this:first-child {
-	border-top: 1px solid #30373D;
+	/* border-top: 1px solid #30373D; */
 }
 ul.sub li.this a {
-	color: #d5d5d5;
+	color: #e2dc1b;
 }
 ul.sub li a {
 	background: url(../images/arrow.gif) no-repeat 12px 16px;
 	border: none;
 	font-family: Arial, Helvetica, sans-serif;
 	color: #494949;
-	font-size: 11px;
+	font-size: 12px;
 	padding: 8px 10px 8px 26px;
-	color: #9da1a5;
+	color: #d5d5d5;
 }
 ul.sub li a:hover {
 	font-style: normal;
@@ -2026,16 +2034,11 @@ width: /*15%*/;
 /* General widgets styles */
 
 .widget {
-
-background: #f9f9f9;
-
-border: 1px solid #cdcdcd;
-
-margin-top: 32px;
-
-clear: both;
-
-overflow:auto;
+background: #f9f9f9;
+border: 1px solid #cdcdcd;
+margin-top: 32px;
+clear: both;
+overflow:auto;
 }
 .widget .title {
 	height: 36px;
@@ -2718,7 +2721,7 @@ padding-left: 0px;
 	font-size: 11px;
 	color: #878787;
 	font-weight: normal;
-	padding: 3px 8px 2px 8px;
+	padding: 3px 4px 2px 4px;
 }
 table thead td.sortCol > div {
 	cursor: pointer;

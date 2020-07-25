@@ -2,38 +2,38 @@
 function tinhtrang($i=0)
 {
   global $d;
-    $sql="select * from table_tinhtrang order by id";
-    $d->query($sql);
-    $result = $d->result_array();
-    $str='<select id="id_tinhtrang" name="id_tinhtrang" class="main_font">
-      ';
-    foreach ($result as $key => $row) {
-      if($row["id"]==$i)
-        $selected="selected";
-      else
-        $selected="";
-      $str.='<option value='.$row["id"].' '.$selected.'>'.$row["trangthai"].'</option>';
-    }
-    $str.='</select>';
-    return $str;
+  $sql="select * from table_tinhtrang order by id";
+  $d->query($sql);
+  $result = $d->result_array();
+  $str='<select id="tinhtrang" name="tinhtrang" class="main_font">
+  ';
+  foreach ($result as $key => $row) {
+    if($row["id"]==$i)
+      $selected="selected";
+    else
+      $selected="";
+    $str.='<option value='.$row["id"].' '.$selected.'>'.$row["trangthai"].'</option>';
+  }
+  $str.='</select>';
+  return $str;
 }
 function hinhthucgiaohang($i=0)
 {
   global $d;
-    $sql="select * from table_hinhthucgiaohang order by id";
-    $d->query($sql);
-    $result = $d->result_array();
-    $str='<select id="hinhthucgiaohang" name="hinhthucgiaohang" class="main_font">
-      ';
-    foreach ($result as $key => $row) {
-      if($row["id"]==$i)
-        $selected="selected";
-      else
-        $selected="";
-      $str.='<option value='.$row["id"].' '.$selected.'>'.$row["ten"].'</option>';
-    }
-    $str.='</select>';
-    return $str;
+  $sql="select * from table_hinhthucgiaohang order by id";
+  $d->query($sql);
+  $result = $d->result_array();
+  $str='<select id="hinhthucgiaohang" name="hinhthucgiaohang" class="main_font">
+  ';
+  foreach ($result as $key => $row) {
+    if($row["id"]==$i)
+      $selected="selected";
+    else
+      $selected="";
+    $str.='<option value='.$row["id"].' '.$selected.'>'.$row["ten"].'</option>';
+  }
+  $str.='</select>';
+  return $str;
 }
 ?>
 <?php
@@ -198,147 +198,99 @@ function get_phuong()
       <div class="clear"></div>
     </div>
     <div class="formRow">
-      <label>Mã đơn hàng</label>
-      <div class="formRight">
-        <input type="text" name="madonhang" title="Mã đơn hàng" style="width:80% !important" readonly="readonly" id="madonhang" class="tipS validate[required]" value="<?=@$item['madonhang']?>" />  
-      </div>
-      <div class="clear"></div>
-    </div>  
-    <div class="formRow">
       <label>Họ tên</label>
       <div class="formRight">
-       <input type="text" name="hoten" title="Họ tên khách hàng" style="width:80% !important"  id="hoten" class="tipS validate[required] read" value="<?=@$item['hoten']?>" />
+       <input type="text" name="hoten" title="Họ tên khách hàng" id="hoten" class="tipS " value="<?=@$item['hoten']?>" />
      </div>
      <div class="clear"></div>
    </div>  
    <div class="formRow">
     <label>Điện thoại</label>
     <div class="formRight">
-     <input type="text" name="dienthoai" title="Số điện thoại khách hàng" style="width:80% !important"  id="dienthoai" class="tipS validate[required] read" value="<?=@$item['dienthoai']?>" /> 
+     <input type="text" name="dienthoai" title="Số điện thoại khách hàng" id="dienthoai" class="tipS  " value="<?=@$item['dienthoai']?>" /> 
    </div>
    <div class="clear"></div>
  </div>            
  <div class="formRow">
   <label>Email</label>
   <div class="formRight">
-   <input type="text" name="email" title="Email khách hàng" style="width:80% !important"  id="email" class="tipS" value="<?=@$item['email']?>" />
+   <input type="text" name="email" title="Email khách hàng" id="email" class="tipS" value="<?=@$item['email']?>" />
  </div>
  <div class="clear"></div>
 </div>  
 <div class="formRow">
-  <label>Địa chỉ</label>
+  <label>Nhân viên KD</label>
   <div class="formRight">
-   <input type="text" name="diachi" title="Địa chỉ khách hàng" style="width:30% !important"
-    readonly="readonly" id="diachi" class="tipS validate[required] read" 
-    value="<?=@$item['diachi']?>" /> - <?=get_thanhpho_item();?> - <?=get_thanhpho();?>  <!-- <?php //get_phuong();?>-->
+    <input type="text" name="nhanvien" title="Nhập nội dung" id="nhanvien" class="tipS" value="<?=@$item['nhanvien']?>" />
  </div>
  <div class="clear"></div>
 </div>  
 <div class="formRow">
-  <label>Yêu cầu thêm</label>
+  <label>Giá Trị Thẻ</label>
   <div class="formRight">
-    <textarea rows="8"  cols="" title="Yêu cầu thêm" class="tipS read" name="noidung" id="noidung"><?=@$item['noidung']?></textarea>
-  </div>
-  <div class="clear"></div>
-</div>  
-<div class="formRow">
-  <label>Phí thêm</label>
-  <div class="formRight">
-   <input type="text" name="phithem" title="Cộng thêm phí giao hang hoặc - khuyến mãi cho khách hang(Nếu khuyến mãi khách hàng thì thêm dấu -)" style="width:80% !important"  id="phithem" class="tipS" value="<?=@$item['phithem']?>" />
+   <input type="text" name="gia" title="Nhập nội dung" id="gia" class="tipS" value="<?=@$item['gia']?>" />
  </div>
  <div class="clear"></div>
-</div>          
-</div>
-<div class="widget">
-  <div class="title"><img src="./images/icons/dark/list.png" alt="" class="titleIcon" />
-    <h6>Chi tiết đơn hàng</h6>
-  </div>
-  <table cellpadding="0" cellspacing="0" width="100%" class="sTable withCheck mTable" id="checkAll">
-    <thead>
-      <tr>
-        <td class="tb_data_small"><a href="#" class="tipS" style="margin: 5px;">STT</a></td>      
-        <td class="sortCol"><div>Tên sản phẩm<span></span></div></td>
-        <td width="150">Hình ảnh</td>
-        <td width="100">Giá cũ</td>
-        <td width="100">Giá bán</td>
-        <td width="100">Số lượng</td>
-        <td width="150">Thành tiền</td>
-        <td width="150">Thao tác</td>
-      </tr>
-    </thead> 
-    <tfoot>
-      <tr>
-        <td colspan="6"><div class="pagination">Phí ship</div></td>
-        <td><div class="pagination"><?=number_format($item['phi'],0, ',', '.')?>&nbsp;vnđ</div></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td colspan="6"><div class="pagination">Tổng tiền</div></td>
-        <td><div class="pagination" id="sum_price"><?=number_format($item['tonggia'],0, ',', '.')?>&nbsp;vnđ</div></td>
-        <td></td>
-      </tr>
-    </tfoot>   
-    <tbody>
-      <?php      
-      $tongtien=0;          
-      for($i=0,$count_donhang=count($chitietdonhang);$i<$count_donhang;$i++){ 
-        $tongtien += $chitietdonhang[$i]['gia']*$chitietdonhang[$i]['soluong'];       
-        ?>
-        <tr id="productct<?=$chitietdonhang[$i]['id']?>">
-          <td><?=$i+1?></td>
-          <td><?=$chitietdonhang[$i]['ten']?>
-          <p>
-            <?php if(!empty($chitietdonhang[$i]["size"])){ ?>
-              Size: <strong><?= $chitietdonhang[$i]["size"] ?></strong>
-            <?php } ?>
-            <?php if(!empty($chitietdonhang[$i]["mausac"])){ ?>
-             - Màu <span class="mau" style="display: inline-block;width: 20px;height: 20px;background: <?= $chitietdonhang[$i]["mausac"] ?>"></span>
-           <?php } ?>
-         </p>
-       </td>
-       <td align="center"><img src="<?=_upload_sanpham.$chitietdonhang[$i]['photo']?>" height="70"  /></td>
-       <td align="center"><?=number_format($chitietdonhang[$i]['giacu'],0, ',', '.')?>&nbsp;VNĐ</td>
-       <td align="center">
-        <?=number_format($chitietdonhang[$i]['gia'],0, ',', '.').'&nbsp;VNĐ';?>
-      </td>
-      <td align="center"><input type="text" class="tipS" style="width:50px; text-align:center" original-title="Nhập số lượng sản phẩm" maxlength="3" value="<?=$chitietdonhang[$i]['soluong']?>" onchange="update(<?=$chitietdonhang[$i]['id']?>)" id="product<?=$chitietdonhang[$i]['id']?>">
-        <div id="ajaxloader"><img class="numloader" id="ajaxloader<?=$chitietdonhang[$i]['id']?>" src="images/loader.gif" alt="loader" /></div>
-      &nbsp;</td>
-      <td align="center" id="id_price<?=$chitietdonhang[$i]['id']?>">
-        <?=number_format($chitietdonhang[$i]['gia']*$chitietdonhang[$i]['soluong'],0, ',', '.')?>&nbsp;VNĐ
-      </td>
-      <td class="actBtns"><a class="smallButton tipS" original-title="Xóa sản phẩm" href="javascript:del(<?=$chitietdonhang[$i]['id']?>,<?=$item['id']?>)"><img src="./images/icons/dark/close.png" alt=""></a></td>
-    </tr>
-  <?php } ?>
-</tbody>
-</table>
+</div>  
+<div class="formRow">
+  <label>Member</label>
+  <div class="formRight">
+   <input type="text" name="member" title="Nhập nội dung" id="member" class="tipS" value="<?=@$item['member']?>" />
+ </div>
+ <div class="clear"></div>
+</div>  
+<div class="formRow">
+  <?php $ngaytt = ($item['hansudung'] > 0)?$item['hansudung']:time(); ?>
+  <label>Hạn sử dụng thẻ <br>(mm/dd/yyyy)</label>
+  <div class="formRight">
+   <input type="date" name="hansudung" title="Hạn sử dụng thẻ" id="hansudung" class="tipS" 
+   value="<?= date('Y-m-d',$ngaytt) ?>" />
+ </div>
+ <div class="clear"></div>
+</div>  
+<div class="formRow">
+  <?php $ngaytt = ($item['ngaythanhtoan'] > 0)?$item['ngaythanhtoan']:time(); ?>
+  <label>Ngày thanh toán <br>(mm/dd/yyyy)</label>
+  <div class="formRight">
+   <input type="date" name="ngaythanhtoan" title="Ngày thanh toán" id="ngaythanhtoan" class="tipS" 
+   value="<?= date('Y-m-d',$ngaytt) ?>" />
+ </div>
+ <div class="clear"></div>
+</div>  
+<div class="formRow">
+  <label>Người thu phí</label>
+  <div class="formRight">
+   <input type="text" name="nguoithu" title="Nhập nội dung" id="nguoithu" class="tipS" value="<?=@$item['nguoithu']?>" />
+ </div>
+ <div class="clear"></div>
+</div>  
 </div>
 <div class="widget">
   <div class="title"><img src="./images/icons/dark/list.png" alt="" class="titleIcon" />
     <h6>Thông tin thêm</h6>
   </div>
   <div class="formRow">
-    <label>Mô tả ngắn:</label>
+    <label>Ghi chú:</label>
     <div class="formRight">
       <textarea rows="8" cols="" title="Viết ghi chú cho đơn hàng" class="tipS" name="ghichu" id="ghichu"><?=@$item['ghichu']?></textarea>
     </div>
     <div class="clear"></div>
-    </div>  
-        <div class="formRow">
-      <label>Tình trạng</label>
-      <div class="formRight">
-              <div class="selector">
-          <?=tinhtrang($item['tinhtrang'])?>
-                </div>
+  </div>  
+  <div class="formRow">
+    <label>Tình trạng</label>
+    <div class="formRight">
+      <div class="selector">
+        <?=tinhtrang($item['tinhtrang'])?>
       </div>
-      <div class="clear"></div>
-    </div>  
-        <div class="formRow">
-      <div class="formRight">      
-                <input type="hidden" name="id" id="id_this_post" value="<?=@$item['id']?>" />
-              <input type="button" class="blueB" onclick="TreeFilterChanged2(); return false;" value="Cập nhật" />
-      </div>
-      <div class="clear"></div>
     </div>
+    <div class="clear"></div>
+  </div>  
+  <div class="formRow">
+    <div class="formRight">      
+      <input type="hidden" name="id" id="id_this_post" value="<?=@$item['id']?>" />
+      <input type="button" class="blueB" onclick="TreeFilterChanged2(); return false;" value="Cập nhật" />
+    </div>
+    <div class="clear"></div>
   </div>
+</div>
 </form>  

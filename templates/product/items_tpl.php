@@ -52,10 +52,40 @@
     });
     function timkiem()
     {
-        var a = $('input.key').val();
-        if(a=='Tên...') a='';
-        window.location ="index.php?com=product&act=man&type=<?=$_REQUEST['type']?>&key="+a;
-        return true;
+        // var a = $('input.key').val();
+        // if(a=='Tên...') a='';
+        // window.location ="index.php?com=product&act=man&type=<?=$_REQUEST['type']?>&key="+a;
+        // return true;
+        var search_hoten = $("#search_hoten").val();
+        var search_email = $("#search_email").val();
+        var search_dienthoai = $("#search_dienthoai").val();
+        var search_diachi = $("#search_diachi").val();
+        var id_danhmuc = $("#id_danhmuc").val();
+        var datefm = document.getElementById("datefm").value;   
+        var dateto = document.getElementById("dateto").value;
+        var search_string = "&type=<?=$_REQUEST['type']?>";
+        if(search_hoten != ""){
+          search_string += "&hoten="+search_hoten;
+        }
+        if(search_email != ""){
+          search_string += "&email="+search_email;
+        }
+        if(search_dienthoai != ""){
+          search_string += "&dienthoai="+search_dienthoai;
+        }
+        if(search_diachi != ""){
+          search_string += "&diachi="+search_diachi;
+        }
+        if(id_danhmuc != ""){
+          search_string += "&id_danhmuc="+id_danhmuc;
+        }
+        if(datefm != ""){
+          search_string += "&datefm="+datefm;
+        }
+        if(dateto != ""){
+          search_string += "&dateto="+dateto;
+        }
+        window.location.href="index.php?com=product&act=man"+search_string;
     }
 </script>
 <?php
@@ -63,7 +93,7 @@ function get_main_danhmuc()
 {
     $getdata = get_result("select * from table_product_danhmuc where type='".$_REQUEST['type']."' order by stt,id desc");
     $str='
-    <select id="id_danhmuc" name="id_danhmuc" onchange="select_onchange()" class="main_select">
+    <select id="id_danhmuc" name="id_danhmuc" class="main_select">
     <option value="">Danh mục cấp 1</option>
     ';
     foreach($getdata as $key=>$row)
@@ -138,6 +168,10 @@ function get_main_item()
     return $str;
 }
 ?>
+<div class="main-title">
+  <i class="fas fa-user"></i>Quản lý Sử dụng dịch vụ
+</div>
+<?php /* 
 <div class="control_frm" style="margin-top:25px;">
     <div class="bc">
         <ul id="breadcrumbs" class="breadcrumbs">
@@ -150,11 +184,51 @@ function get_main_item()
         </ul>
         <div class="clear"></div>
     </div>
-</div>
-<form name="frm" id="frm" method="post" action="index.php?com=product&act=savestt<?php if($_REQUEST['id_danhmuc']!='') echo'&id_danhmuc='.$_REQUEST['id_danhmuc'];?><?php if($_REQUEST['id_list']!='') echo'&id_list='.$_REQUEST['id_list'];?><?php if($_REQUEST['id_cat']!='') echo'&id_cat='.$_REQUEST['id_cat'];?><?php if($_REQUEST['id_item']!='') echo'&id_item='.$_REQUEST['id_item'];?><?php if($_REQUEST['p']!='') echo'&p='.$_REQUEST['p'];?>">
+</div> 
+*/?>
+<form name="frm" id="frm" method="post" 
+action="index.php?com=product&act=savestt<?php if($_REQUEST['id_danhmuc']!='') echo'&id_danhmuc='.$_REQUEST['id_danhmuc'];?>
+<?php if($_REQUEST['id_list']!='') echo'&id_list='.$_REQUEST['id_list'];?><?php if($_REQUEST['id_cat']!='') echo'&id_cat='.$_REQUEST['id_cat'];?>
+<?php if($_REQUEST['id_item']!='') echo'&id_item='.$_REQUEST['id_item'];?><?php if($_REQUEST['p']!='') echo'&p='.$_REQUEST['p'];?>">
+    <div class="main-search">
+      <div class="main-search__title">Điều kiện lọc</div>
+      <div class="main-search__body">
+      <div class="d-flex flex-wrap">
+        
+        <div class="form-group">
+          <input type="text" placeholder="Từ ngày.." name="ngaybd" id="datefm" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Đến ngày.." name="ngaykt" id="dateto" class="form-control">
+        </div>
+        <div class="form-group">
+          <?=get_main_danhmuc()?>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between flex-wrap">
+        <div class="form-group">
+          <input type="text" placeholder="Họ và Tên" name="search_hoten" id="search_hoten" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Số điện thoại" name="search_dienthoai" id="search_dienthoai" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Email" name="search_email" id="search_email" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Địa chỉ" name="search_diachi" id="search_diachi" class="form-control">
+        </div>
+      </div>
+      </div>
+      <div class="main-search__foot d-flex">
+        <button class="btn btn-primary main-search__btn mx-auto" type="button" onclick="timkiem();">Tìm kiếm <i class="fas fa-search"></i></button>
+      </div>
+
+    </div>
     <div class="control_frm" style="margin-top:0;">
         <div style="float:left;">
-            <input type="button" class="blueB" value="Thêm" onclick="location.href='index.php?com=product&act=add<?php if($_REQUEST['type']!='') echo'&type='. $_REQUEST['type'];?>'" />
+            <input type="button" class="blueB" value="Thêm" 
+            onclick="location.href='index.php?com=product&act=add<?php if($_REQUEST['type']!='') echo'&type='. $_REQUEST['type'];?>'" />
             <input type="button" class="blueB" value="Xoá Chọn" id="xoahet" />
         </div>
     </div>
@@ -163,10 +237,12 @@ function get_main_item()
         <input type="checkbox" id="titleCheck" name="titleCheck" />
     </span>
     <h6>Chọn tất cả</h6>
+    <?php /* 
     <div class="timkiem">
-        <input type="text" value="" name="key" class="key"  placeholder="Nhập từ khóa tìm kiếm ">
-        <button type="button" class="blueB" onclick="timkiem();" value="">Tìm kiếm</button>
-    </div>
+            <input type="text" value="" name="key" class="key"  placeholder="Nhập từ khóa tìm kiếm ">
+            <button type="button" class="blueB" onclick="timkiem();" value="">Tìm kiếm</button>
+        </div> 
+    */?>
 </div>
 <table cellpadding="0" cellspacing="0" width="100%" class="sTable withCheck mTable" id="checkAll">
   <thead>
@@ -174,7 +250,7 @@ function get_main_item()
         <td></td>
         <td class="tb_data_small"><a href="#" class="tipS" >Thứ tự</a></td>
         <?php if(in_array('danhmuc',$config['type'])) { ?>
-            <td class="tb_data_small"><?=get_main_danhmuc()?></td>
+            <td class="tb_data_small">Loại dịch vụ</td>
         <?php } ?>
         <?php if(in_array('list',$config['type'])) { ?>
             <td class="tb_data_small"><?=get_main_list()?></td>
@@ -187,24 +263,9 @@ function get_main_item()
         <?php if(in_array('ten',$config['type'])) { ?>
             <td class="sortCol"><div>Tên <span></span></div></td>
         <?php } ?>
-        <?php if(in_array('hinhanh',$config['type'])) { ?>
-            <td width="100px">Hình ảnh</td>
-        <?php } ?>
-        <?php if(in_array('binhluan',$config['type'])) { ?>
-            <td width="130px" class="">Bình luận</td>
-        <?php } ?>
-        <?php if(in_array('noibat',$config['type'])) { ?>
-            <td class="tb_data_small"><?= (!empty($config['title']['noibat'])) ? $config['title']['noibat'] : "Nổi bật" ?></td>
-        <?php } ?>
-        <?php if(in_array('spbanchay',$config['type'])) { ?>
-            <td class="tb_data_small "><?= (!empty($config['title']['spbanchay'])) ? $config['title']['spbanchay'] : "Bán chạy" ?></td>
-        <?php } ?>
-        <?php if(in_array('spmoi',$config['type'])) { ?>
-            <td class="tb_data_small "><?= (!empty($config['title']['spmoi'])) ? $config['title']['spmoi'] : "Sp mới" ?></td>
-        <?php } ?>
-        <?php if(in_array('tieubieu',$config['type'])) { ?>
-            <td class="tb_data_small "><?= (!empty($config['title']['tieubieu'])) ? $config['title']['tieubieu'] : "Tiêu biểu" ?></td>
-        <?php } ?>
+        <td class="tb_data_small">Điện thoại</td>
+        <td class="tb_data_small">Email</td>
+        <td class="tb_data_small">Ngày sử dụng</td>
         <td class="tb_data_small">Ẩn/Hiện</td>
         <td width="200">Thao tác</td>
     </tr>
@@ -212,11 +273,9 @@ function get_main_item()
 <tbody>
  <?php for($i=0, $count=count($items); $i<$count; $i++){
     $link_edit = "index.php?com=product&act=edit&id_danhmuc=".$items[$i]['id_danhmuc'];
-    $link_edit .= "&id_list=".$items[$i]['id_list']."&id_cat=".$items[$i]['id_cat'];
-    $link_edit .= "&id_item=".$items[$i]['id_item']."&id_hientrang=".$items[$i]['id_hientrang'];
-    $link_edit .= "&id_huong=".$items[$i]['id_huong']."&thuonghieu=".$items[$i]['thuonghieu'];
+    $link_edit .= "&id_khachhang=".$items[$i]['id_khachhang']."&ten=".$items[$i]['ten'];
+    $link_edit .= "&email=".$items[$i]['email']."&dienthoai=".$items[$i]['dienthoai'];
     $link_edit .= "&type=".$items[$i]['type']."&p=".$items[$i]['p']."&id=".$items[$i]['id'];
-    $link_edit .= "&id_city=".$items[$i]['id_city']."&id_dist=".$items[$i]['id_dist'];
     $link_edit =  (string)magic_quote(trim(strip_tags($link_edit)));
     ?>
     <tr>
@@ -224,7 +283,11 @@ function get_main_item()
         <input type="checkbox" name="chon" value="<?=$items[$i]['id']?>" id="chon" />
     </td>
     <td align="center">
-        <input data-val0="<?=$items[$i]['id']?>" data-val2="table_<?=$_GET['com']?>" type="text" value="<?=$items[$i]['stt']?>" name="stt<?=$i?>" data-val3="stt" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" class="tipS smallText update_stt" onblur="stt(this)" original-title="Nhập số thứ tự sản phẩm" rel="<?=$items[$i]['id']?>" />
+        <input data-val0="<?=$items[$i]['id']?>" data-val2="table_<?=$_GET['com']?>" type="text" 
+        value="<?=$items[$i]['stt']?>" name="stt<?=$i?>" data-val3="stt" 
+        onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" 
+        class="tipS smallText update_stt" onblur="stt(this)" 
+        original-title="Nhập số thứ tự sản phẩm" rel="<?=$items[$i]['id']?>" />
     </td>
     <?php if(in_array('danhmuc',$config['type'])) { ?>
         <td align="center">
@@ -263,59 +326,9 @@ function get_main_item()
             <a href="<?= $link_edit ?>" class="tipS SC_bold"><?=$items[$i]['ten']?></a>
         </td>
     <?php } ?>
-    <?php if(in_array('hinhanh',$config['type'])) { ?>
-        <td align="center">
-            <a href="<?= $link_edit ?>" class="tipS SC_bold"><img src="<?=_upload_sanpham.$items[$i]['thumb']?>" style="max-height:40px; max-width:70px;" /></a>
-        </td>
-    <?php } ?>
-    <?php if(in_array('binhluan',$config['type'])) { ?>
-       <td align="center" class="none">
-            <a href="index.php?com=comment&act=man&product_id=<?=$items[$i]['id']?>&type=<?=$_REQUEST['type']?>&id=<?=$items[$i]['id']?>"
-             class="tipS SC_bold">
-             <?php
-             $d->reset();
-             $sql = "select count(id) as dem from table_comment where product_id='".$items[$i]['id']."' 
-             and type='".$_GET['type']."'";
-             $d->query($sql);
-             $dem_comment = $d->result_array();
-             echo "(".$dem_comment[0]['dem'].")";
-             ?>
-             B.luận
-         </a>
-     </td>
-    <?php } ?>
-    <?php if(in_array('noibat',$config['type'])) { ?>
-        <td align="center">
-            <a data-val2="table_<?=$_GET['com']?>" rel="<?=$items[$i]['noibat']?>" 
-                data-val3="noibat" class="diamondToggle <?=($items[$i]['noibat']==1)?"diamondToggleOff":""?>"
-                data-val0="<?=$items[$i]['id']?>" >
-
-            </a>
-        </td>
-    <?php } ?>
-    <?php if(in_array('spbanchay',$config['type'])) { ?>
-        <td align="center" >
-            <a data-val2="table_<?=$_GET['com']?>" rel="<?=$items[$i]['spbanchay']?>" 
-                data-val3="spbanchay" class="diamondToggle <?=($items[$i]['spbanchay']==1)?"diamondToggleOff":""?>" 
-                data-val0="<?=$items[$i]['id']?>" >
-            </a>
-        </td>
-    <?php } ?>
-    <?php if(in_array('spmoi',$config['type'])) { ?>
-        <td align="center" >
-            <a data-val2="table_<?=$_GET['com']?>" rel="<?=$items[$i]['spmoi']?>" data-val3="spmoi"
-               class="diamondToggle <?=($items[$i]['spmoi']==1)?"diamondToggleOff":""?>" data-val0="<?=$items[$i]['id']?>" >
-           </a>
-       </td>
-    <?php } ?>
-    <?php if(in_array('tieubieu',$config['type'])) { ?>
-        <td align="center" >
-            <a data-val2="table_<?=$_GET['com']?>" rel="<?=$items[$i]['tieubieu']?>" 
-                data-val3="tieubieu" class="diamondToggle <?=($items[$i]['tieubieu']==1)?"diamondToggleOff":""?>"
-                data-val0="<?=$items[$i]['id']?>" >
-            </a>
-        </td>
-    <?php } ?>
+    <td align="center"><?=$items[$i]['dienthoai']?></td>
+    <td align="center"><?=$items[$i]['email']?></td>
+    <td align="center"><?=date("d/m/Y",$items[$i]['ngaytao'])?></td>
         <td align="center">
           <a data-val2="table_<?=$_GET['com']?>" rel="<?=$items[$i]['hienthi']?>" 
             data-val3="hienthi" class="diamondToggle <?=($items[$i]['hienthi']==1)?"diamondToggleOff":""?>" 
@@ -335,3 +348,24 @@ function get_main_item()
 </div>
 </form>
 <div class="pagination">  <?=pagesListLimitadmin($url_link , $totalRows , $pageSize, $offset)?></div>
+<script type="text/javascript">
+$(document).ready(function(){                       
+    var dates = $( "#datefm, #dateto" ).datepicker({
+            defaultDate: "+1w",
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,          
+            numberOfMonths: 3,
+            onSelect: function( selectedDate ) {
+                var option = this.id == "datefm" ? "minDate" : "maxDate",
+                    instance = $( this ).data( "datepicker" ),
+                    date = $.datepicker.parseDate(
+                        instance.settings.dateFormat ||
+                        $.datepicker._defaults.dateFormat,
+                        selectedDate, instance.settings );
+                dates.not( this ).datepicker( "option", option, date );
+            }
+        });
+        
+        });
+        
+</script>
