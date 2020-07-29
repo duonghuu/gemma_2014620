@@ -1,6 +1,6 @@
 <?php 
 if($_GET["id_khachhang"]){
-  $get_khachhang = get_fetch("select ten,email,dienthoai from #_khachhang where id='".(int)$_GET["id_khachhang"]."'");
+  $get_khachhang = get_fetch("select ten,email,dienthoai,diachi from #_khachhang where id='".(int)$_GET["id_khachhang"]."'");
 }
  ?>
 <script language="javascript">
@@ -113,6 +113,13 @@ function get_main_danhmuc()
     <label>Điện thoại:</label>
     <div class="formRight">
       <input type="text" name="dienthoai" value="<?=($get_khachhang['dienthoai'])?$get_khachhang['dienthoai']:$item['dienthoai']?>" class="input" />
+    </div>
+    <div class="clear"></div>
+   </div>
+   <div class="formRow">
+    <label>Địa chỉ:</label>
+    <div class="formRight">
+      <input type="text" name="diachi" value="<?=($get_khachhang['diachi'])?$get_khachhang['diachi']:$item['diachi']?>" class="input" />
     </div>
     <div class="clear"></div>
    </div>

@@ -3,6 +3,13 @@ require 'vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 $act = (isset($_REQUEST['act'])) ? addslashes($_REQUEST['act']) : "";
+$urlcu = "";
+$urlcu .= (isset($_REQUEST['id_danhmuc'])) ? "&id_danhmuc=".addslashes($_REQUEST['id_danhmuc']) : "";
+$urlcu .= (isset($_REQUEST['id_list'])) ? "&id_list=".addslashes($_REQUEST['id_list']) : "";
+$urlcu .= (isset($_REQUEST['id_cat'])) ? "&id_cat=".addslashes($_REQUEST['id_cat']) : "";
+$urlcu .= (isset($_REQUEST['id_item'])) ? "&id_item=".addslashes($_REQUEST['id_item']) : "";
+$urlcu .= (isset($_REQUEST['type'])) ? "&type=".addslashes($_REQUEST['type']) : "";
+// $urlcu .= (isset($_REQUEST['p'])) ? "&p=".addslashes($_REQUEST['p']) : "";
 $id=$_REQUEST['id'];
 switch($act){
 	case "man":
@@ -38,7 +45,7 @@ function fns_Rand_digit($min,$max,$num)
 	return $result;	
 }
 function get_items(){
-	global $d, $items, $paging;
+	global $d, $items, $url_link,$totalRows , $pageSize, $offset,$paging,$urlcu;
 	$where=" where id<> 0 "; 
 	if($_GET["ngaybd"]!=''){
 		$ngaybatdau = $_GET["ngaybd"];		
@@ -108,14 +115,30 @@ if($_REQUEST['nguoithu']!='')
 }
 $sql = "select * from #_donhang $where";	
 $sql.=" order by id desc";
-$d->query($sql);
-$items = $d->result_array();
-$curPage = isset($_GET['curPage']) ? $_GET['curPage'] : 1;
-$url="index.php?com=order&act=man&tinhtrang=".$_GET['tinhtrang']."&ngaytao=".$_GET['ngaytao']."&ngayin=".$_REQUEST['ngayin']."&hinhthucgiaohang=".$_GET['hinhthucgiaohang'];
-$maxR=20;
-$maxP=20;
-$paging=paging($items, $url, $curPage, $maxR, $maxP);
-$items=$paging['source'];
+
+$dem=get_fetch("select count(id) AS numrows from #_donhang $where");
+$totalRows=$dem['numrows'];
+$page=$_GET['p'];
+$pageSize=20;
+$offset=10;
+if ($page=="")
+    $page=1;
+else
+    $page=$_GET['p'];
+$page--;
+$bg=$pageSize*$page;
+$sql = "select * from #_donhang $where limit $bg,$pageSize";
+$items=get_result($sql);
+$url_link="index.php?com=order&act=man".$urlcu;
+
+// $d->query($sql);
+// $items = $d->result_array();
+// $curPage = isset($_GET['curPage']) ? $_GET['curPage'] : 1;
+// $url="index.php?com=order&act=man&tinhtrang=".$_GET['tinhtrang']."&ngaytao=".$_GET['ngaytao']."&ngayin=".$_REQUEST['ngayin']."&hinhthucgiaohang=".$_GET['hinhthucgiaohang'];
+// $maxR=20;
+// $maxP=20;
+// $paging=paging($items, $url, $curPage, $maxR, $maxP);
+// $items=$paging['source'];
 }
 function get_item(){
 	global $d, $item;
@@ -133,6 +156,7 @@ function save_item(){
 	if(empty($_POST)) transfer("Không nhận được dữ liệu", "index.php?com=order&act=man");
 	$id = isset($_POST['id']) ? themdau($_POST['id']) : "";
 	$data['ngaydangky'] = $_POST['ngaydangky'];
+	$data['id_khachhang'] = (int)$_POST['id_khachhang'];
 	$data['hoten'] = (string)magic_quote(trim(strip_tags($_POST['hoten'])));
 	$data['dienthoai'] = $_POST['dienthoai'];
 	$data['diachi'] = $_POST['diachi'];
@@ -371,15 +395,19 @@ function exportkhachhang(){
 	// set data detail
 	$vitri = 3;
 	foreach($items as $k=>$v) {
-		$d->reset();
-		$sql="select ten from table_httt where id = '".$v["httt"]."'";
-		$d->query($sql);
-		$httt = $d->fetch_array();   
+		if($v["httt"]>0){
 
-		$d->reset();
-		$sql="select trangthai from #_tinhtrang where id = '".$v["tinhtrang"]."'";
-		$d->query($sql);
-		$tinhtrang = $d->fetch_array();
+			$d->reset();
+			$sql="select ten from table_httt where id = '".$v["httt"]."'";
+			$d->query($sql);
+			$httt = $d->fetch_array();   
+		}
+		if($v["tinhtrang"]>0){
+			$d->reset();
+			$sql="select trangthai from #_tinhtrang where id = '".$v["tinhtrang"]."'";
+			$d->query($sql);
+			$tinhtrang = $d->fetch_array();
+		}
 
 		$sheet->setCellValue('A'.$vitri, $k+1);
 		$sheet->setCellValue('B'.$vitri, $v["hoten"]);

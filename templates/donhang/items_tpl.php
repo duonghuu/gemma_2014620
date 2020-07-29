@@ -403,13 +403,24 @@ function tinhtrang($i=0)
         <td width="150">Thao tác</td>
       </tr>
     </thead>
+          <?php /* 
     <tfoot>
+      
       <tr>
-        <td colspan="10"><div class="pagination">  <?=$paging['paging']?>     </div></td>
+        <td colspan="10">
+
+          <div class="pagination"><?=$paging['paging']?>     </div> 
+        </td>
       </tr>
     </tfoot>
+          */?>
     <tbody>
-         <?php for($i=0, $count=count($items); $i<$count; $i++){?>
+         <?php 
+         $tonggiatri = 0;
+         for($i=0, $count=count($items); $i<$count; $i++){
+         $tonggiatri += $items[$i]['gia'];
+
+          ?>
           <tr>
        <td>
             <input type="checkbox" name="chon" value="<?=$items[$i]['id']?>" id="check<?=$i?>" />
@@ -469,11 +480,17 @@ function tinhtrang($i=0)
             <a href="" onclick="CheckDelete('index.php?com=order&act=delete&id=<?=$items[$i]['id']?>'); return false;" title="" class="smallButton tipS" original-title="Xóa đơn hàng"><img src="./images/icons/dark/close.png" alt=""></a>        </td>
       </tr>
          <?php } ?>
+         <tr>
+           <td colspan="4" ></td>
+           <td align="center"><strong>Tổng giá trị:</strong></td>
+           <td align="center"><?=number_format($tonggiatri,0, ',', '.')?>&nbsp;vnđ</td>
+           <td colspan="4" ></td>
+         </tr>
                 </tbody>
   </table>
 </div>
 </form>               
-
+<div class="pagination">  <?=pagesListLimitadmin($url_link , $totalRows , $pageSize, $offset)?></div>
 
 <script type="text/javascript">
 function onSearch(evt) {	

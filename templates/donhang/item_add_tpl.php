@@ -1,3 +1,8 @@
+<?php 
+if($_GET["id_khachhang"]){
+  $get_khachhang = get_fetch("select ten,email,dienthoai from #_khachhang where id='".(int)$_GET["id_khachhang"]."'");
+}
+ ?>
 <?php
 function tinhtrang($i=0)
 {
@@ -95,8 +100,33 @@ $tongtiendonhang = 0;
     window.location ="index.php?com=order&act=<?php if($_REQUEST['act']=='edit') echo 'edit'; else echo 'add';?><?php if($_REQUEST['id']!='') echo"&id=".$_REQUEST['id']; ?>&thanhpho_item="+a.value+"&thanhpho="+b.value;  
     return true;
   }
+  function select_onchange2()
+  {
+    var chuoi = "";if("<?=$_GET['act']?>"=='add' && "<?=$_GET['id_khachhang']?>"<=0)
+    chuoi= "&id_khachhang="+document.getElementById("id_khachhang").value;
+    window.location = location.href.replace("id_khachhang=<?=$_GET['id_khachhang']?>", "id_khachhang="+document.getElementById("id_khachhang").value)+chuoi;
+    return true;
+  }
 </script>
 <?php
+function get_main_khachhang()
+{
+    global $d;
+      $sql="select id,ten from table_khachhang";
+      $d->query($sql);
+      $result = $d->result_array();
+      $str='<select id="id_khachhang" name="id_khachhang" onchange="select_onchange2()" class="main_select select_danhmuc">
+        <option value="">Danh mục khách hàng</option>';
+      foreach ($result as $key => $row) {
+        if($row["id"]==(int)@$_REQUEST["id_khachhang"])
+          $selected="selected";
+        else
+          $selected="";
+        $str.='<option value='.$row["id"].' '.$selected.'>'.$row["ten"].'</option>';
+      }
+      $str.='</select>';
+      return $str;
+}
 function get_httt()
 {
   global $d;
@@ -190,31 +220,34 @@ function get_phuong()
     <div class="title"><img src="./images/icons/dark/list.png" alt="" class="titleIcon" />
       <h6>Thông tin người mua</h6>
     </div>
-    <div class="formRow">
-      <label>Hình thức thanh toán</label>
+     <div class="formRow">
+      <label>Chọn khách hàng</label>
       <div class="formRight">
-        <?=get_httt();?>
+        <?=get_main_khachhang()?>
       </div>
       <div class="clear"></div>
     </div>
     <div class="formRow">
       <label>Họ tên</label>
       <div class="formRight">
-       <input type="text" name="hoten" title="Họ tên khách hàng" id="hoten" class="tipS " value="<?=@$item['hoten']?>" />
+       <input type="text" name="hoten" title="Họ tên khách hàng" id="hoten" class="tipS "
+        value="<?=($get_khachhang['ten'])?$get_khachhang['ten']:$item['hoten']?>" />
      </div>
      <div class="clear"></div>
    </div>  
    <div class="formRow">
     <label>Điện thoại</label>
     <div class="formRight">
-     <input type="text" name="dienthoai" title="Số điện thoại khách hàng" id="dienthoai" class="tipS  " value="<?=@$item['dienthoai']?>" /> 
+     <input type="text" name="dienthoai" title="Số điện thoại khách hàng" id="dienthoai" 
+     class="tipS  " value="<?=($get_khachhang['dienthoai'])?$get_khachhang['dienthoai']:$item['dienthoai']?>" /> 
    </div>
    <div class="clear"></div>
  </div>            
  <div class="formRow">
   <label>Email</label>
   <div class="formRight">
-   <input type="text" name="email" title="Email khách hàng" id="email" class="tipS" value="<?=@$item['email']?>" />
+   <input type="text" name="email" title="Email khách hàng" id="email" class="tipS" 
+   value="<?=($get_khachhang['email'])?$get_khachhang['email']:$item['email']?>" />
  </div>
  <div class="clear"></div>
 </div>  
@@ -263,6 +296,13 @@ function get_phuong()
    <input type="text" name="nguoithu" title="Nhập nội dung" id="nguoithu" class="tipS" value="<?=@$item['nguoithu']?>" />
  </div>
  <div class="clear"></div>
+</div>
+<div class="formRow">
+  <label>Hình thức thanh toán</label>
+  <div class="formRight">
+    <?=get_httt();?>
+  </div>
+  <div class="clear"></div>
 </div>  
 </div>
 <div class="widget">

@@ -94,7 +94,7 @@ function get_main_danhmuc()
     $getdata = get_result("select * from table_product_danhmuc where type='".$_REQUEST['type']."' order by stt,id desc");
     $str='
     <select id="id_danhmuc" name="id_danhmuc" class="main_select">
-    <option value="">Danh mục cấp 1</option>
+    <option value="">Dịch vụ sử dụng</option>
     ';
     foreach($getdata as $key=>$row)
     {
@@ -230,6 +230,31 @@ action="index.php?com=product&act=savestt<?php if($_REQUEST['id_danhmuc']!='') e
             <input type="button" class="blueB" value="Thêm" 
             onclick="location.href='index.php?com=product&act=add<?php if($_REQUEST['type']!='') echo'&type='. $_REQUEST['type'];?>'" />
             <input type="button" class="blueB" value="Xoá Chọn" id="xoahet" />
+            <?php 
+            $search_string = "&type=".$_REQUEST['type'];
+            if($_GET["hoten"] != ""){
+              $search_string .= "&hoten=".$_GET["hoten"];
+            }
+            if($_GET["email"] != ""){
+              $search_string .= "&email=".$_GET["email"];
+            }
+            if($_GET["dienthoai"] != ""){
+              $search_string .= "&dienthoai=".$_GET["dienthoai"];
+            }
+            if($_GET["diachi"] != ""){
+              $search_string .= "&diachi=".$_GET["diachi"];
+            }
+            if($_GET["id_danhmuc"] != ""){
+              $search_string .= "&id_danhmuc=".$_GET["id_danhmuc"];
+            }
+            if($_GET["datefm"] != ""){
+              $search_string .= "&datefm=".$_GET["datefm"];
+            }
+            if($_GET["dateto"] != ""){
+              $search_string .= "&dateto=".$_GET["dateto"];
+            }
+             ?>
+            <input type="button" class="blueB" value="Xuất file" onclick="location.href='index.php?com=product&act=exportkhachhang<?= $search_string ?>'" />
         </div>
     </div>
     <div class="widget">
@@ -266,7 +291,9 @@ action="index.php?com=product&act=savestt<?php if($_REQUEST['id_danhmuc']!='') e
         <td class="tb_data_small">Điện thoại</td>
         <td class="tb_data_small">Email</td>
         <td class="tb_data_small">Ngày sử dụng</td>
-        <td class="tb_data_small">Ẩn/Hiện</td>
+        <?php /* 
+        <td class="tb_data_small">Ẩn/Hiện</td> 
+        */?>
         <td width="200">Thao tác</td>
     </tr>
 </thead>
@@ -329,11 +356,13 @@ action="index.php?com=product&act=savestt<?php if($_REQUEST['id_danhmuc']!='') e
     <td align="center"><?=$items[$i]['dienthoai']?></td>
     <td align="center"><?=$items[$i]['email']?></td>
     <td align="center"><?=date("d/m/Y",$items[$i]['ngaytao'])?></td>
+   <?php /* 
         <td align="center">
-          <a data-val2="table_<?=$_GET['com']?>" rel="<?=$items[$i]['hienthi']?>" 
-            data-val3="hienthi" class="diamondToggle <?=($items[$i]['hienthi']==1)?"diamondToggleOff":""?>" 
-            data-val0="<?=$items[$i]['id']?>" ></a>
-        </td>
+             <a data-val2="table_<?=$_GET['com']?>" rel="<?=$items[$i]['hienthi']?>" 
+               data-val3="hienthi" class="diamondToggle <?=($items[$i]['hienthi']==1)?"diamondToggleOff":""?>" 
+               data-val0="<?=$items[$i]['id']?>" ></a>
+           </td> 
+   */?>
         <td class="actBtns">
             <a href="<?= $link_edit ?>" title="" class="smallButton tipS" original-title="Sửa sản phẩm">
                 <img src="./images/icons/dark/pencil.png" alt=""></a>

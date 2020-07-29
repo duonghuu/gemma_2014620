@@ -115,16 +115,16 @@ $logolang = get_fetch("select photo from #_background where type='logo'");
         </ul>
         </li>  */?>
        <?php /* 
+       */?>
         <li class="categories_li <?php if($_GET['com']=='phanquyen' || $_GET['com']=='com') 
                echo ' activemenu' ?>" id="menu_pq"><a href="" title="" class="exp"><span>Thành viên
                </span><strong></strong></a>
                <ul class="sub">
-                   <?php //phanquyen_menu('Quản lý nhóm thành viên','phanquyen','man',''); ?>
-                   <?php //phanquyen_menu('Quản lý thành viên','user','man',''); ?>
+                   <?php phanquyen_menu('Quản lý nhóm thành viên','phanquyen','man',''); ?>
+                   <?php phanquyen_menu('Quản lý thành viên','user','man',''); ?>
                    <?php //phanquyen_menu('Quản lý com','com','man',''); ?>
                </ul>
            </li> 
-       */?>
 <?php /* 
 <li class="categories_li <?php if($_GET['com']=='place') echo ' activemenu' ?>"
  id="menu_pl"><a href="" title="" class="exp"><span>Địa điểm</span><strong></strong></a>
@@ -137,13 +137,14 @@ $logolang = get_fetch("select photo from #_background where type='logo'");
 </li> 
 */?>
 <li class="categories_li setting_li <?php if(($type == 'dichvu' && $_GET["act"] == "man_danhmuc") || in_array($type, array('txtvideo',
-'hotline','zalo','tags','diachi')) || $_GET['com']=='httt' || $_GET['com']=='company' || $_GET['com']=='meta' ||
+'hotline','zalo','tags','diachi','logo')) || $_GET['com']=='httt' || $_GET['com']=='company' || $_GET['com']=='meta' ||
 $_GET['com']=='user') echo ' activemenu' ?>" id="menu_cp"><a href="" title="" class="exp">
     <span>Quản trị</span><strong></strong></a>
     <ul class="sub">
         <?php //phanquyen_menu('Cấu hình thông tin Website','company','capnhat',''); ?>
         <?php phanquyen_menu('Loại dịch vụ','product','man_danhmuc','dichvu'); ?>
         <?php phanquyen_menu('Quản lý hình thức thanh toán','httt','man',''); ?>
+        <?php phanquyen_menu('Logo','background','capnhat','logo'); ?>
         <?php //phanquyen_menu('Quản lý hotline','news','man','hotline'); ?>
         <?php //phanquyen_menu('Quản lý zalo','news','man','zalo'); ?>
         <?php //phanquyen_menu('Quản lý chi nhánh','news','man','diachi'); ?>

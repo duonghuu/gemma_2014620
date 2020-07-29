@@ -60,7 +60,7 @@ $rs_group=$d->result_array();
 				</div>
 				<div class="clear"></div>
 			</div>
-			<div class="formRow none">
+			<div class="formRow">
 				<label>Nhóm thành viên :</label>
 				<div class="formRight">
 					<select name="group"  class="main_select select_danhmuc" >

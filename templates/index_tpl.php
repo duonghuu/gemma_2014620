@@ -30,7 +30,7 @@
     </a>
   </div>
   <div class="user-panel-item user-panel-item--four">
-    <a href="index.php?com=user&act=admin_edit" class="user-panel-item__url">
+    <a href="index.php?com=user&act=man" class="user-panel-item__url">
       <div class="user-panel-item__head">
         <i class="fas fa-cog"></i>
         <span>Xem chi tiết</span>

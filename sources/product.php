@@ -1,4 +1,7 @@
 <?php   if(!defined('_source')) die("Error");
+require 'vendor/autoload.php';
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 $act = (isset($_REQUEST['act'])) ? addslashes($_REQUEST['act']) : "";
 $urlcu = "";
 $urlcu .= (isset($_REQUEST['id_danhmuc'])) ? "&id_danhmuc=".addslashes($_REQUEST['id_danhmuc']) : "";
@@ -25,6 +28,9 @@ switch($act){
     case "delete":
     delete_item();
     break;
+    case "exportkhachhang":
+    exportkhachhang();
+    break;  
     #===================================================
     case "man_item":
     get_loais();
@@ -1404,4 +1410,190 @@ function delete_product($idsp){
     $d->setTable('product');
     $d->setWhere('id',$id);
     return $d->delete();
+}
+function exportkhachhang(){
+    global $d,$items;
+        if($_REQUEST['type']!='')
+        {
+            $where.=" and type='".$_REQUEST['type']."'";
+        }
+        if((int)$_REQUEST['id_danhmuc']!='')
+        {
+            $where.=" and id_danhmuc=".(int)$_REQUEST['id_danhmuc']."";
+        }
+        if((int)$_REQUEST['id_list']!='')
+        {
+            $where.=" and id_list=".(int)$_REQUEST['id_list']."";
+        }
+        if((int)$_REQUEST['id_cat']!='')
+        {
+            $where.=" and id_cat=".(int)$_REQUEST['id_cat']."";
+        }
+        if((int)$_REQUEST['id_item']!='')
+        {
+            $where.=" and id_item=".(int)$_REQUEST['id_item']."";
+        }
+        if($_REQUEST['hoten']!='')
+        {
+            $where.=" and (ten like '%".$_REQUEST['hoten']."%')";
+        }
+        if($_REQUEST['email']!='')
+        {
+            $where.=" and (email like '%".$_REQUEST['email']."%')";
+        }
+        if($_REQUEST['dienthoai']!='')
+        {
+            $where.=" and (dienthoai like '%".$_REQUEST['dienthoai']."%')";
+        }
+        if($_REQUEST['diachi']!='')
+        {
+            $where.=" and (diachi like '%".$_REQUEST['diachi']."%')";
+        }
+        if($_GET["ngaybd"]!=''){
+            $ngaybatdau = $_GET["ngaybd"];      
+            $Ngay_arr = explode("/",$ngaybatdau); // array(17,11,2010)
+            if (count($Ngay_arr)==3) {
+                $ngay = $Ngay_arr[0]; //17
+                $thang = $Ngay_arr[1]; //11
+                $nam = $Ngay_arr[2]; //2010
+                if (checkdate($thang,$ngay,$nam)==false){ $coloi=true; $error_ngaysinh = "Bạn nhập chưa đúng ngày<br>";} 
+                else $ngaybatdau=$nam."-".$thang."-".$ngay;
+            }   
+            $where.=" and ngaytao>=".strtotime($ngaybatdau)." ";
+        }
+        if($_GET["ngaykt"]!=''){
+            $ngayketthuc = $_GET["ngaykt"];     
+            $Ngay_arr = explode("/",$ngayketthuc); // array(17,11,2010)
+            if (count($Ngay_arr)==3) {
+                $ngay = $Ngay_arr[0]; //17
+                $thang = $Ngay_arr[1]; //11
+                $nam = $Ngay_arr[2]; //2010
+                if (checkdate($thang,$ngay,$nam)==false){ $coloi=true; $error_ngaysinh = "Bạn nhập chưa đúng ngày<br>";} 
+                else $ngayketthuc=$nam."-".$thang."-".$ngay;
+            }   
+            $where.=" and ngaytao<=".strtotime($ngayketthuc)." ";
+        }
+        $where.= " order by id_danhmuc,id_list,id_cat,id_item,stt asc,id desc";
+        $sql = "select * from #_product where id<>0 $where";
+        $items=get_result($sql);
+    $spreadsheet = new Spreadsheet();
+    // Set document properties
+    $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
+        ->setLastModifiedBy('Maarten Balliauw')
+        ->setTitle('Office 2007 XLSX')
+        ->setSubject('Office 2007 XLSX')
+        ->setDescription('Office 2007 XLSX, generated using PHP classes.')
+        ->setKeywords('office 2007 openxml php')
+        ->setCategory('Output file');
+    $sheet = $spreadsheet->getActiveSheet();
+    //set styles
+    $stylemainArray = [
+        'font' => [
+            'bold' => true,
+            'size' => 20,
+            'color' => ['argb' => 'FFFFFFFF'],
+        ],
+        'alignment' => [
+            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+        ],
+        'fill' => [
+            'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+            'startColor' => [
+                'argb' => 'FF0000FF',
+            ],
+        ],
+        
+    ];
+    $styletongArray = [
+        'font' => [
+            'bold' => true,
+            'size' => 14,
+            'color' => ['argb' => 'FFFFFFFF'],
+        ],
+        'alignment' => [
+            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+        ],
+        'fill' => [
+            'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+            'startColor' => [
+                'argb' => 'FFFF0000',
+            ],
+        ],
+        
+    ];
+    $styleheaderArray = [
+        'font' => [
+            'bold' => true,
+            'size' => 14,
+            'color' => ['argb' => 'FFFFFFFF'],
+        ],
+        'alignment' => [
+            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+        ],
+        'fill' => [
+            'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+            'startColor' => [
+                'rgb' => '996600',
+            ],
+        ],
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                'color' => ['argb' => '00000000'],
+            ],
+        ],
+    ];
+    $styleborderArray = [
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                'color' => ['argb' => '00000000'],
+            ]
+         ]
+    ];
+    $sheet->getStyle('A1:H1')->applyFromArray($stylemainArray);
+    $sheet->getStyle('A2:H2')->applyFromArray($styleheaderArray);
+    foreach(range('A','H') as $columnID) {
+        $sheet->getColumnDimension($columnID)->setAutoSize(true);
+    }
+    //set data
+
+    $sheet->mergeCells('A1:H1')->setCellValue('A1', 'QUẢN LÝ KHÁCH HÀNG SỬ DỤNG DỊCH VỤ Ở GEMMATRAVEL');
+    $sheet->setCellValue('A2', 'STT');
+    $sheet->setCellValue('B2', 'HỌ VÀ TÊN');
+    $sheet->setCellValue('C2', 'EMAIL');
+    $sheet->setCellValue('D2', 'SỐ ĐIỆN THOẠI');
+    $sheet->setCellValue('E2', 'ĐỊA CHỈ');
+    $sheet->setCellValue('F2', 'LOẠI DỊCH VỤ SỬ DỤNG');
+    $sheet->setCellValue('G2', 'NGÀY SỬ DỤNG');
+    $sheet->setCellValue('H2', 'GHI CHÚ');
+    // set data detail
+    $vitri = 3;
+    foreach($items as $k=>$v) {
+        
+        if($v["id_danhmuc"]>0){
+            $item_danhmuc = get_fetch("select ten from table_product_danhmuc where id='".$v['id_danhmuc']."'");
+        }
+
+        $sheet->setCellValue('A'.$vitri, $k+1);
+        $sheet->setCellValue('B'.$vitri, $v["ten"]);
+        $sheet->setCellValue('C'.$vitri, $v["email"]);
+        $sheet->setCellValue('D'.$vitri, $v["dienthoai"]);
+        $sheet->setCellValue('E'.$vitri, $v["diachi"]);
+        $sheet->setCellValue('F'.$vitri, $item_danhmuc["ten"]);
+        $sheet->setCellValue('G'.$vitri, date("d/m/Y",$v["ngaytao"]));
+        $sheet->setCellValue('H'.$vitri, $v["mota"]);
+        $sheet->getStyle('A'.$vitri.':'.'H'.$vitri)->applyFromArray($styleborderArray);
+        $vitri++;
+    }
+
+    //set output
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="quanlydichvu.xlsx"');
+    header('Cache-Control: max-age=0');
+    $writer->save("php://output");
+    exit;
 }

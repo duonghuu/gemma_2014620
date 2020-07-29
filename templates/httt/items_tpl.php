@@ -42,7 +42,7 @@
 </div>
 <div class="control_frm" style="margin-top:0;">
   <div style="float:left;">
-    <?php /* <input type="button" class="blueB" value="Thêm" onclick="location.href='index.php?com=httt&act=add&type=<?=$_REQUEST['type']?>'" /> */?>
+    <input type="button" class="blueB" value="Thêm" onclick="location.href='index.php?com=httt&act=add&type=<?=$_REQUEST['type']?>'" />
     <?php /* <input type="button" class="blueB" value="Xoá Chọn" id="xoahet" /> */?>
   </div>  
 </div>
