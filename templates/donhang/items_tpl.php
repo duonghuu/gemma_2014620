@@ -392,6 +392,7 @@ function tinhtrang($i=0)
     <thead>
       <tr>
         <td></td>
+        <td width="150">STT</td>
         <td class="sortCol"><div>Họ tên<span></span></div></td>
         <td width="150">Email</td>
         <td width="150">Điện thoại</td>
@@ -425,6 +426,7 @@ function tinhtrang($i=0)
        <td>
             <input type="checkbox" name="chon" value="<?=$items[$i]['id']?>" id="check<?=$i?>" />
         </td>
+        <td> <?=$i+1?> </td> 
         <td> <?=$items[$i]['hoten']?> </td> 
         <td> <?=$items[$i]['email']?> </td>
         <td> <?=$items[$i]['dienthoai']?> </td>
@@ -481,7 +483,7 @@ function tinhtrang($i=0)
       </tr>
          <?php } ?>
          <tr>
-           <td colspan="4" ></td>
+           <td colspan="5" ></td>
            <td align="center"><strong>Tổng giá trị:</strong></td>
            <td align="center"><?=number_format($tonggiatri,0, ',', '.')?>&nbsp;vnđ</td>
            <td colspan="4" ></td>

@@ -310,11 +310,14 @@ action="index.php?com=product&act=savestt<?php if($_REQUEST['id_danhmuc']!='') e
         <input type="checkbox" name="chon" value="<?=$items[$i]['id']?>" id="chon" />
     </td>
     <td align="center">
+        <?= $i+1 ?>
+        <?php /* 
         <input data-val0="<?=$items[$i]['id']?>" data-val2="table_<?=$_GET['com']?>" type="text" 
-        value="<?=$items[$i]['stt']?>" name="stt<?=$i?>" data-val3="stt" 
-        onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" 
-        class="tipS smallText update_stt" onblur="stt(this)" 
-        original-title="Nhập số thứ tự sản phẩm" rel="<?=$items[$i]['id']?>" />
+                value="<?=$items[$i]['stt']?>" name="stt<?=$i?>" data-val3="stt" 
+                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" 
+                class="tipS smallText update_stt" onblur="stt(this)" 
+                original-title="Nhập số thứ tự sản phẩm" rel="<?=$items[$i]['id']?>" /> 
+        */?>
     </td>
     <?php if(in_array('danhmuc',$config['type'])) { ?>
         <td align="center">

@@ -99,11 +99,14 @@
         <input type="checkbox" name="chon" value="<?=$items[$i]['id']?>" id="check<?=$i?>" />
       </td>
       <td align="center">
+        <?= $i+1 ?>
+        <?php /* 
         <input data-val0="<?=$items[$i]['id']?>" data-val2="table_<?=$_GET['com']?>" type="text" 
-        value="<?=$items[$i]['stt']?>" name="stt<?=$i?>" data-val3="stt" 
-        onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" 
-        class="tipS smallText update_stt" onblur="stt(this)" original-title="Nhập số thứ tự sản phẩm" 
-        rel="<?=$items[$i]['id']?>" />
+                value="<?=$items[$i]['stt']?>" name="stt<?=$i?>" data-val3="stt" 
+                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" 
+                class="tipS smallText update_stt" onblur="stt(this)" original-title="Nhập số thứ tự sản phẩm" 
+                rel="<?=$items[$i]['id']?>" /> 
+        */?>
       </td> 
       <td class="title_name_data">
         <a href="index.php?com=khachhang&act=edit&id_list=<?=$items[$i]['id_list']?>&id_cat=<?=$items[$i]['id_cat']?>&id=<?=$items[$i]['id']?><?php if($_REQUEST['type']!='') echo'&type='. $_REQUEST['type'];?>" class="tipS SC_bold"><?=$items[$i]['ten']?></a>
