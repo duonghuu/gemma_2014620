@@ -230,7 +230,7 @@ function get_phuong()
     <div class="formRow">
       <label>Họ tên</label>
       <div class="formRight">
-       <input type="text" name="hoten" title="Họ tên khách hàng" id="hoten" class="tipS "
+       <input type="text" name="hoten" readonly="true" title="Họ tên khách hàng" id="hoten" class="tipS "
         value="<?=($get_khachhang['ten'])?$get_khachhang['ten']:$item['hoten']?>" />
      </div>
      <div class="clear"></div>
@@ -238,7 +238,7 @@ function get_phuong()
    <div class="formRow">
     <label>Điện thoại</label>
     <div class="formRight">
-     <input type="text" name="dienthoai" title="Số điện thoại khách hàng" id="dienthoai" 
+     <input type="text" name="dienthoai" readonly="true" title="Số điện thoại khách hàng" id="dienthoai" 
      class="tipS  " value="<?=($get_khachhang['dienthoai'])?$get_khachhang['dienthoai']:$item['dienthoai']?>" /> 
    </div>
    <div class="clear"></div>
@@ -246,7 +246,7 @@ function get_phuong()
  <div class="formRow">
   <label>Email</label>
   <div class="formRight">
-   <input type="text" name="email" title="Email khách hàng" id="email" class="tipS" 
+   <input type="text" name="email" readonly="true" title="Email khách hàng" id="email" class="tipS" 
    value="<?=($get_khachhang['email'])?$get_khachhang['email']:$item['email']?>" />
  </div>
  <div class="clear"></div>

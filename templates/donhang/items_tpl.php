@@ -177,6 +177,8 @@ function tinhtrang($i=0)
       var search_diachi = $("#search_diachi").val();
       var search_nhanvien = $("#search_nhanvien").val();
       var search_nguoithu = $("#search_nguoithu").val();
+      var search_httt = $("#httt").val();
+      var search_tinhtrang = $("#tinhtrang").val();
       var datefm = document.getElementById("datefm").value;   
       var dateto = document.getElementById("dateto").value;
       search_string = "";
@@ -197,6 +199,12 @@ function tinhtrang($i=0)
       }
       if(search_nguoithu != ""){
         search_string += "&nguoithu="+search_nguoithu;
+      }
+      if(search_httt != ""){
+        search_string += "&httt="+search_httt;
+      }
+      if(search_tinhtrang != ""){
+        search_string += "&tinhtrang="+search_tinhtrang;
       }
       if(datefm != ""){
         search_string += "&datefm="+datefm;
@@ -288,7 +296,7 @@ function tinhtrang($i=0)
         <input type="text" placeholder="Đến ngày.." name="ngaykt" id="dateto" class="form-control">
       </div>
       <div class="form-group">
-        <select name="httt" class="form-control">
+        <select name="httt" id="httt" class="form-control">
         <option value="0">Hình thức thanh toán</option>
           <?php 
             $sql="select id,ten from #_httt order by id";
@@ -304,7 +312,7 @@ function tinhtrang($i=0)
         
       </div>
       <div class="form-group">
-        <select name="tinhtrang" class="form-control">
+        <select name="tinhtrang" id="tinhtrang" class="form-control">
         <option value="0">Tình trạng</option>
           <?php 
             $sql="select id,trangthai from #_tinhtrang order by id";
@@ -393,7 +401,7 @@ function tinhtrang($i=0)
       <tr>
         <td></td>
         <td width="150">STT</td>
-        <td class="sortCol"><div>Họ tên<span></span></div></td>
+        <td class="sortCol" width="350"><div>Họ tên<span></span></div></td>
         <td width="150">Email</td>
         <td width="150">Điện thoại</td>
         <td width="150">Nhân viên KD</td>
@@ -417,16 +425,16 @@ function tinhtrang($i=0)
           */?>
     <tbody>
          <?php 
-         $tonggiatri = 0;
+
+         
          for($i=0, $count=count($items); $i<$count; $i++){
-         $tonggiatri += $items[$i]['gia'];
 
           ?>
           <tr>
        <td>
             <input type="checkbox" name="chon" value="<?=$items[$i]['id']?>" id="check<?=$i?>" />
         </td>
-        <td> <?=$i+1?> </td> 
+        <td align="center"> <?=$items[$i]['id']?> </td> 
         <td> <?=$items[$i]['hoten']?> </td> 
         <td> <?=$items[$i]['email']?> </td>
         <td> <?=$items[$i]['dienthoai']?> </td>
@@ -478,7 +486,7 @@ function tinhtrang($i=0)
         <td class="actBtns">
             <?php /* <a href="export.php?id=<?=$items[$i]['id']?>" title="" class="smallButton tipS" original-title="Xuất đơn hàng"><img src="./images/icons/dark/excel.png" alt=""></a> */?>
             
-            <a href="index.php?com=order&act=edit&id=<?=$items[$i]['id']?>&thanhpho_item=<?=$items[$i]['thanhpho']?>&thanhpho=<?=$items[$i]['quan']?>&phuong=<?=$items[$i]['phuong']?>&httt=<?=$items[$i]['httt']?>" title="" class="smallButton tipS" original-title="Xem và sửa đơn hàng"><img src="./images/icons/dark/preview.png" alt=""></a>
+            <a href="index.php?com=order&act=edit&id=<?=$items[$i]['id']?>&id_khachhang=<?=$items[$i]['id_khachhang']?>&thanhpho_item=<?=$items[$i]['thanhpho']?>&thanhpho=<?=$items[$i]['quan']?>&phuong=<?=$items[$i]['phuong']?>&httt=<?=$items[$i]['httt']?>" title="" class="smallButton tipS" original-title="Xem và sửa đơn hàng"><img src="./images/icons/dark/preview.png" alt=""></a>
             <a href="" onclick="CheckDelete('index.php?com=order&act=delete&id=<?=$items[$i]['id']?>'); return false;" title="" class="smallButton tipS" original-title="Xóa đơn hàng"><img src="./images/icons/dark/close.png" alt=""></a>        </td>
       </tr>
          <?php } ?>

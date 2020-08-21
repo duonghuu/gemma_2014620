@@ -45,7 +45,7 @@ function fns_Rand_digit($min,$max,$num)
 	return $result;	
 }
 function get_items(){
-	global $d, $items, $url_link,$totalRows , $pageSize, $offset,$paging,$urlcu;
+	global $d, $items, $url_link,$totalRows , $pageSize, $offset,$paging,$urlcu,$tonggiatri;
 	$where=" where id<> 0 "; 
 	if($_GET["ngaybd"]!=''){
 		$ngaybatdau = $_GET["ngaybd"];		
@@ -116,8 +116,9 @@ if($_REQUEST['nguoithu']!='')
 $sql = "select * from #_donhang $where";	
 $sql.=" order by id desc";
 
-$dem=get_fetch("select count(id) AS numrows from #_donhang $where");
+$dem=get_fetch("select count(id) AS numrows,sum(gia) AS giarows from #_donhang $where");
 $totalRows=$dem['numrows'];
+$tonggiatri = $dem['giarows'];
 $page=$_GET['p'];
 $pageSize=20;
 $offset=10;
@@ -408,12 +409,20 @@ function exportkhachhang(){
 			$d->query($sql);
 			$tinhtrang = $d->fetch_array();
 		}
-
-		$sheet->setCellValue('A'.$vitri, $k+1);
-		$sheet->setCellValue('B'.$vitri, $v["hoten"]);
-		$sheet->setCellValue('C'.$vitri, $v["email"]);
-		$sheet->setCellValue('D'.$vitri, $v["dienthoai"]);
-		$sheet->setCellValue('E'.$vitri, $v["diachi"]);
+		if($v["id_khachhang"]>0){
+		  $get_khachhang = get_fetch("select ten,email,dienthoai,diachi from 
+		  #_khachhang where id='".(int)$v["id_khachhang"]."'");
+		}
+		$sheet->setCellValue('A'.$vitri, $v["id"]);
+		$sheet->setCellValue('B'.$vitri, $get_khachhang["ten"]);
+		$sheet->setCellValue('C'.$vitri, $get_khachhang["email"]);
+		// $sheet->setCellValue('D'.$vitri, $get_khachhang["dienthoai"]);
+		$sheet->getCell('D'.$vitri)
+		    ->setValueExplicit(
+		        $get_khachhang["dienthoai"],
+		        \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING
+		    );
+		$sheet->setCellValue('E'.$vitri, $get_khachhang["diachi"]);
 		$sheet->setCellValue('F'.$vitri, $v["member"]);
 		$sheet->setCellValue('G'.$vitri, date("d/m/Y",$v["hansudung"]));
 		$sheet->setCellValue('H'.$vitri, $v["gia"]);
@@ -423,6 +432,8 @@ function exportkhachhang(){
 		$sheet->setCellValue('L'.$vitri, $v["nguoithu"]);
 		$sheet->setCellValue('M'.$vitri, $tinhtrang["trangthai"]);
 		$sheet->setCellValue('N'.$vitri, $v["ghichu"]);
+		
+		$sheet->getStyle('N'.$vitri)->getAlignment()->setWrapText(true);
 		$sheet->getStyle('A'.$vitri.':'.'N'.$vitri)->applyFromArray($styleborderArray);
 		$vitri++;
 	}
