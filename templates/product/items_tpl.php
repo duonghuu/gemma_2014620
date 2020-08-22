@@ -288,20 +288,20 @@ action="index.php?com=product&act=savestt<?php if($_REQUEST['id_danhmuc']!='') e
         <?php if(in_array('ten',$config['type'])) { ?>
             <td class="sortCol"><div>Tên <span></span></div></td>
         <?php } ?>
+        <td class="tb_data_small">Địa chỉ</td>
         <td class="tb_data_small">Điện thoại</td>
         <td class="tb_data_small">Email</td>
         <td class="tb_data_small">Ngày sử dụng</td>
         <?php /* 
         <td class="tb_data_small">Ẩn/Hiện</td> 
         */?>
-        <td width="200">Thao tác</td>
+        <td width="50">Thao tác</td>
     </tr>
 </thead>
 <tbody>
  <?php for($i=0, $count=count($items); $i<$count; $i++){
     $link_edit = "index.php?com=product&act=edit&id_danhmuc=".$items[$i]['id_danhmuc'];
-    $link_edit .= "&id_khachhang=".$items[$i]['id_khachhang']."&ten=".$items[$i]['ten'];
-    $link_edit .= "&email=".$items[$i]['email']."&dienthoai=".$items[$i]['dienthoai'];
+    $link_edit .= "&id_khachhang=".$items[$i]['id_khachhang'];
     $link_edit .= "&type=".$items[$i]['type']."&p=".$items[$i]['p']."&id=".$items[$i]['id'];
     $link_edit =  (string)magic_quote(trim(strip_tags($link_edit)));
     ?>
@@ -352,12 +352,13 @@ action="index.php?com=product&act=savestt<?php if($_REQUEST['id_danhmuc']!='') e
         </td>
     <?php } ?>
     <?php if(in_array('ten',$config['type'])) { ?>
-        <td class="title_name_data">
-            <a href="<?= $link_edit ?>" class="tipS SC_bold"><?=$items[$i]['ten']?></a>
+        <td class="center">
+            <a href="<?= $link_edit ?>" class="tipS SC_bold"><?=$items[$i]['ten_khachhang']?></a>
         </td>
     <?php } ?>
-    <td align="center"><?=$items[$i]['dienthoai']?></td>
-    <td align="center"><?=$items[$i]['email']?></td>
+    <td align="center"><?=$items[$i]['diachi_khachhang']?></td>
+    <td align="center"><?=$items[$i]['dienthoai_khachhang']?></td>
+    <td align="center"><?=$items[$i]['email_khachhang']?></td>
     <td align="center"><?=date("d/m/Y",$items[$i]['ngaytao'])?></td>
    <?php /* 
         <td align="center">

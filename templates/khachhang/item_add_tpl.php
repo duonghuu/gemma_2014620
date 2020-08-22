@@ -56,21 +56,23 @@
 				</div>
 				<div class="clear"></div>
 			</div>
+			<?php /* 
 			<div class="formRow">
-				<label>Số thứ tự:</label>
-				<div class="formRight">
-					<input type="text" name="stt" value="<?=isset($item['stt'])?$item['stt']:1?>" style="width:30px">
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="formRow">
-				<label>Hiển thị:</label>
-				<div class="formRight">
-					<input type="checkbox" name="hienthi" 
-					<?=(!isset($item['hienthi']) || $item['hienthi']==1)?'checked="checked"':''?>>
-				</div>
-				<div class="clear"></div>
-			</div>
+							<label>Số thứ tự:</label>
+							<div class="formRight">
+								<input type="text" name="stt" value="<?=isset($item['stt'])?$item['stt']:1?>" style="width:30px">
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div class="formRow">
+							<label>Hiển thị:</label>
+							<div class="formRight">
+								<input type="checkbox" name="hienthi" 
+								<?=(!isset($item['hienthi']) || $item['hienthi']==1)?'checked="checked"':''?>>
+							</div>
+							<div class="clear"></div>
+						</div> 
+			*/?>
 			<div class="formRow">
 				<label></label>
 				<div class="formRight">

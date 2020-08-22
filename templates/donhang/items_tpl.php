@@ -404,6 +404,7 @@ function tinhtrang($i=0)
         <td class="sortCol" width="350"><div>Họ tên<span></span></div></td>
         <td width="150">Email</td>
         <td width="150">Điện thoại</td>
+        <td width="150">Địa chỉ</td>
         <td width="150">Nhân viên KD</td>
         <td width="150">Giá trị</td>
         <td width="150">Member</td>
@@ -425,19 +426,20 @@ function tinhtrang($i=0)
           */?>
     <tbody>
          <?php 
-
-         
-         for($i=0, $count=count($items); $i<$count; $i++){
+         $begin_num = $bg;
+         $count=count($items);
+         for($i=0; $i<$count; $i++){
 
           ?>
           <tr>
        <td>
             <input type="checkbox" name="chon" value="<?=$items[$i]['id']?>" id="check<?=$i?>" />
         </td>
-        <td align="center"> <?=$items[$i]['id']?> </td> 
-        <td> <?=$items[$i]['hoten']?> </td> 
-        <td> <?=$items[$i]['email']?> </td>
-        <td> <?=$items[$i]['dienthoai']?> </td>
+        <td align="center"> <?=($begin_num+($i+1))?> </td> 
+        <td> <?=$items[$i]['ten_khachhang']?> </td> 
+        <td> <?=$items[$i]['email_khachhang']?> </td>
+        <td> <?=$items[$i]['dienthoai_khachhang']?> </td>
+        <td> <?=$items[$i]['diachi_khachhang']?> </td>
         <td> <?=$items[$i]['nhanvien']?> </td>
         <td align="center"><?=number_format($items[$i]['gia'],0, ',', '.')?>&nbsp;vnđ
         </td>
@@ -491,7 +493,7 @@ function tinhtrang($i=0)
       </tr>
          <?php } ?>
          <tr>
-           <td colspan="5" ></td>
+           <td colspan="6" ></td>
            <td align="center"><strong>Tổng giá trị:</strong></td>
            <td align="center"><?=number_format($tonggiatri,0, ',', '.')?>&nbsp;vnđ</td>
            <td colspan="4" ></td>

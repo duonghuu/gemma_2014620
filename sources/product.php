@@ -116,90 +116,74 @@ function fns_Rand_digit($min,$max,$num)
     return $result;
 }
 function get_items(){
-    global $d, $items, $url_link,$totalRows , $pageSize, $offset,$paging,$urlcu;
-    // var search_hoten = $("#search_hoten").val();
-    // var search_email = $("#search_email").val();
-    // var search_dienthoai = $("#search_dienthoai").val();
-    // var search_diachi = $("#search_diachi").val();
-    // var id_danhmuc = $("#id_danhmuc").val();
-    // var datefm = document.getElementById("datefm").value;   
-    // var dateto = document.getElementById("dateto").value;
-
-    if($_REQUEST['type']!='')
-    {
-        $where.=" and type='".$_REQUEST['type']."'";
-    }
-    if((int)$_REQUEST['id_danhmuc']!='')
-    {
-        $where.=" and id_danhmuc=".(int)$_REQUEST['id_danhmuc']."";
-    }
-    if((int)$_REQUEST['id_list']!='')
-    {
-        $where.=" and id_list=".(int)$_REQUEST['id_list']."";
-    }
-    if((int)$_REQUEST['id_cat']!='')
-    {
-        $where.=" and id_cat=".(int)$_REQUEST['id_cat']."";
-    }
-    if((int)$_REQUEST['id_item']!='')
-    {
-        $where.=" and id_item=".(int)$_REQUEST['id_item']."";
-    }
-    if($_REQUEST['hoten']!='')
-    {
-        $where.=" and (ten like '%".$_REQUEST['hoten']."%')";
-    }
-    if($_REQUEST['email']!='')
-    {
-        $where.=" and (email like '%".$_REQUEST['email']."%')";
-    }
-    if($_REQUEST['dienthoai']!='')
-    {
-        $where.=" and (dienthoai like '%".$_REQUEST['dienthoai']."%')";
-    }
-    if($_REQUEST['diachi']!='')
-    {
-        $where.=" and (diachi like '%".$_REQUEST['diachi']."%')";
-    }
-    if($_GET["ngaybd"]!=''){
-        $ngaybatdau = $_GET["ngaybd"];      
-        $Ngay_arr = explode("/",$ngaybatdau); // array(17,11,2010)
-        if (count($Ngay_arr)==3) {
-            $ngay = $Ngay_arr[0]; //17
-            $thang = $Ngay_arr[1]; //11
-            $nam = $Ngay_arr[2]; //2010
-            if (checkdate($thang,$ngay,$nam)==false){ $coloi=true; $error_ngaysinh = "Bạn nhập chưa đúng ngày<br>";} 
-            else $ngaybatdau=$nam."-".$thang."-".$ngay;
-        }   
-        $where.=" and ngaytao>=".strtotime($ngaybatdau)." ";
-    }
-    if($_GET["ngaykt"]!=''){
-        $ngayketthuc = $_GET["ngaykt"];     
-        $Ngay_arr = explode("/",$ngayketthuc); // array(17,11,2010)
-        if (count($Ngay_arr)==3) {
-            $ngay = $Ngay_arr[0]; //17
-            $thang = $Ngay_arr[1]; //11
-            $nam = $Ngay_arr[2]; //2010
-            if (checkdate($thang,$ngay,$nam)==false){ $coloi=true; $error_ngaysinh = "Bạn nhập chưa đúng ngày<br>";} 
-            else $ngayketthuc=$nam."-".$thang."-".$ngay;
-        }   
-        $where.=" and ngaytao<=".strtotime($ngayketthuc)." ";
-    }
-    $where.= " order by id_danhmuc,id_list,id_cat,id_item,stt asc,id desc";
-    $dem=get_fetch("select count(id) AS numrows from #_product where id<>0 $where");
-    $totalRows=$dem['numrows'];
-    $page=$_GET['p'];
-    $pageSize=20;
-    $offset=10;
-    if ($page=="")
-        $page=1;
-    else
-        $page=$_GET['p'];
-    $page--;
-    $bg=$pageSize*$page;
-    $sql = "select * from #_product where id<>0 $where limit $bg,$pageSize";
-    $items=get_result($sql);
-    $url_link="index.php?com=product&act=man".$urlcu;
+   global $d, $items, $url_link,$totalRows , $pageSize, $offset,$paging,$urlcu;
+   if($_REQUEST['type']!='')
+   {
+       $where.=" and pro.type='".$_REQUEST['type']."'";
+   }
+   if((int)$_REQUEST['id_danhmuc']!='')
+   {
+       $where.=" and pro.id_danhmuc=".(int)$_REQUEST['id_danhmuc']."";
+   }
+   if($_REQUEST['hoten']!='')
+   {
+       $where.=" and (khachhang.ten like '%".$_REQUEST['hoten']."%')";
+   }
+   if($_REQUEST['email']!='')
+   {
+       $where.=" and (khachhang.email like '%".$_REQUEST['email']."%')";
+   }
+   if($_REQUEST['dienthoai']!='')
+   {
+       $where.=" and (khachhang.dienthoai like '%".$_REQUEST['dienthoai']."%')";
+   }
+   if($_REQUEST['diachi']!='')
+   {
+       $where.=" and (khachhang.diachi like '%".$_REQUEST['diachi']."%')";
+   }
+   if($_GET["ngaybd"]!=''){
+       $ngaybatdau = $_GET["ngaybd"];      
+       $Ngay_arr = explode("/",$ngaybatdau); // array(17,11,2010)
+       if (count($Ngay_arr)==3) {
+           $ngay = $Ngay_arr[0]; //17
+           $thang = $Ngay_arr[1]; //11
+           $nam = $Ngay_arr[2]; //2010
+           if (checkdate($thang,$ngay,$nam)==false){ $coloi=true; $error_ngaysinh = "Bạn nhập chưa đúng ngày<br>";} 
+           else $ngaybatdau=$nam."-".$thang."-".$ngay;
+       }   
+       $where.=" and pro.ngaytao>=".strtotime($ngaybatdau)." ";
+   }
+   if($_GET["ngaykt"]!=''){
+       $ngayketthuc = $_GET["ngaykt"];     
+       $Ngay_arr = explode("/",$ngayketthuc); // array(17,11,2010)
+       if (count($Ngay_arr)==3) {
+           $ngay = $Ngay_arr[0]; //17
+           $thang = $Ngay_arr[1]; //11
+           $nam = $Ngay_arr[2]; //2010
+           if (checkdate($thang,$ngay,$nam)==false){ $coloi=true; $error_ngaysinh = "Bạn nhập chưa đúng ngày<br>";} 
+           else $ngayketthuc=$nam."-".$thang."-".$ngay;
+       }   
+       $where.=" and pro.ngaytao<=".strtotime($ngayketthuc)." ";
+   }
+   $where.= " order by pro.id desc";
+   $dem=get_fetch("select count(pro.id) AS numrows from #_product as pro,#_khachhang as
+    khachhang where pro.id_khachhang=khachhang.id $where");
+   $totalRows=$dem['numrows'];
+   $page=$_GET['p'];
+   $pageSize=20;
+   $offset=10;
+   if ($page=="")
+       $page=1;
+   else
+       $page=$_GET['p'];
+   $page--;
+   $bg=$pageSize*$page;
+   $sql = "select pro.id,pro.id_danhmuc,pro.id_khachhang,pro.type,pro.ngaytao,pro.mota,
+   khachhang.ten as ten_khachhang,khachhang.diachi as diachi_khachhang,khachhang.dienthoai as dienthoai_khachhang
+   ,khachhang.email as email_khachhang 
+   from #_product as pro,#_khachhang as khachhang where pro.id_khachhang=khachhang.id $where limit $bg,$pageSize";
+   $items=get_result($sql);
+   $url_link="index.php?com=product&act=man".$urlcu;
 }
 function get_item(){
     global $d, $item,$urlcu,$uudiem_value,$uptaptin_value,$prlk,$add_data;
@@ -1415,39 +1399,27 @@ function exportkhachhang(){
     global $d,$items;
         if($_REQUEST['type']!='')
         {
-            $where.=" and type='".$_REQUEST['type']."'";
+            $where.=" and pro.type='".$_REQUEST['type']."'";
         }
         if((int)$_REQUEST['id_danhmuc']!='')
         {
-            $where.=" and id_danhmuc=".(int)$_REQUEST['id_danhmuc']."";
-        }
-        if((int)$_REQUEST['id_list']!='')
-        {
-            $where.=" and id_list=".(int)$_REQUEST['id_list']."";
-        }
-        if((int)$_REQUEST['id_cat']!='')
-        {
-            $where.=" and id_cat=".(int)$_REQUEST['id_cat']."";
-        }
-        if((int)$_REQUEST['id_item']!='')
-        {
-            $where.=" and id_item=".(int)$_REQUEST['id_item']."";
+            $where.=" and pro.id_danhmuc=".(int)$_REQUEST['id_danhmuc']."";
         }
         if($_REQUEST['hoten']!='')
         {
-            $where.=" and (ten like '%".$_REQUEST['hoten']."%')";
+            $where.=" and (khachhang.ten like '%".$_REQUEST['hoten']."%')";
         }
         if($_REQUEST['email']!='')
         {
-            $where.=" and (email like '%".$_REQUEST['email']."%')";
+            $where.=" and (khachhang.email like '%".$_REQUEST['email']."%')";
         }
         if($_REQUEST['dienthoai']!='')
         {
-            $where.=" and (dienthoai like '%".$_REQUEST['dienthoai']."%')";
+            $where.=" and (khachhang.dienthoai like '%".$_REQUEST['dienthoai']."%')";
         }
         if($_REQUEST['diachi']!='')
         {
-            $where.=" and (diachi like '%".$_REQUEST['diachi']."%')";
+            $where.=" and (khachhang.diachi like '%".$_REQUEST['diachi']."%')";
         }
         if($_GET["ngaybd"]!=''){
             $ngaybatdau = $_GET["ngaybd"];      
@@ -1459,7 +1431,7 @@ function exportkhachhang(){
                 if (checkdate($thang,$ngay,$nam)==false){ $coloi=true; $error_ngaysinh = "Bạn nhập chưa đúng ngày<br>";} 
                 else $ngaybatdau=$nam."-".$thang."-".$ngay;
             }   
-            $where.=" and ngaytao>=".strtotime($ngaybatdau)." ";
+            $where.=" and pro.ngaytao>=".strtotime($ngaybatdau)." ";
         }
         if($_GET["ngaykt"]!=''){
             $ngayketthuc = $_GET["ngaykt"];     
@@ -1471,10 +1443,13 @@ function exportkhachhang(){
                 if (checkdate($thang,$ngay,$nam)==false){ $coloi=true; $error_ngaysinh = "Bạn nhập chưa đúng ngày<br>";} 
                 else $ngayketthuc=$nam."-".$thang."-".$ngay;
             }   
-            $where.=" and ngaytao<=".strtotime($ngayketthuc)." ";
+            $where.=" and pro.ngaytao<=".strtotime($ngayketthuc)." ";
         }
-        $where.= " order by id_danhmuc,id_list,id_cat,id_item,stt asc,id desc";
-        $sql = "select * from #_product where id<>0 $where";
+        $where.= " order by pro.id desc";
+        $sql = "select pro.id,pro.id_danhmuc,pro.id_khachhang,pro.type,pro.ngaytao,pro.mota,
+   khachhang.ten as ten_khachhang,khachhang.diachi as diachi_khachhang,khachhang.dienthoai as dienthoai_khachhang
+   ,khachhang.email as email_khachhang 
+   from #_product as pro,#_khachhang as khachhang where pro.id_khachhang=khachhang.id $where";
         $items=get_result($sql);
     $spreadsheet = new Spreadsheet();
     // Set document properties
@@ -1578,10 +1553,10 @@ function exportkhachhang(){
         }
 
         $sheet->setCellValue('A'.$vitri, $k+1);
-        $sheet->setCellValue('B'.$vitri, $v["ten"]);
-        $sheet->setCellValue('C'.$vitri, $v["email"]);
-        $sheet->setCellValue('D'.$vitri, $v["dienthoai"]);
-        $sheet->setCellValue('E'.$vitri, $v["diachi"]);
+        $sheet->setCellValue('B'.$vitri, $v["ten_khachhang"]);
+        $sheet->setCellValue('C'.$vitri, $v["email_khachhang"]);
+        $sheet->setCellValue('D'.$vitri, $v["dienthoai_khachhang"]);
+        $sheet->setCellValue('E'.$vitri, $v["diachi_khachhang"]);
         $sheet->setCellValue('F'.$vitri, $item_danhmuc["ten"]);
         $sheet->setCellValue('G'.$vitri, date("d/m/Y",$v["ngaytao"]));
         $sheet->setCellValue('H'.$vitri, $v["mota"]);
