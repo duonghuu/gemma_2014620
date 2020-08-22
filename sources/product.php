@@ -166,8 +166,8 @@ function get_items(){
        $where.=" and pro.ngaytao<=".strtotime($ngayketthuc)." ";
    }
    $where.= " order by pro.id desc";
-   $dem=get_fetch("select count(pro.id) AS numrows from #_product as pro,#_khachhang as
-    khachhang where pro.id_khachhang=khachhang.id $where");
+   $dem=get_fetch("select count(pro.id) AS numrows from #_product as pro LEFT JOIN 
+   #_khachhang as khachhang on pro.id_khachhang=khachhang.id where pro.id<>0 $where");
    $totalRows=$dem['numrows'];
    $page=$_GET['p'];
    $pageSize=20;
@@ -181,7 +181,8 @@ function get_items(){
    $sql = "select pro.id,pro.id_danhmuc,pro.id_khachhang,pro.type,pro.ngaytao,pro.mota,
    khachhang.ten as ten_khachhang,khachhang.diachi as diachi_khachhang,khachhang.dienthoai as dienthoai_khachhang
    ,khachhang.email as email_khachhang 
-   from #_product as pro,#_khachhang as khachhang where pro.id_khachhang=khachhang.id $where limit $bg,$pageSize";
+   from #_product as pro LEFT JOIN #_khachhang as khachhang on pro.id_khachhang=khachhang.id where 
+   pro.id<>0 $where limit $bg,$pageSize";
    $items=get_result($sql);
    $url_link="index.php?com=product&act=man".$urlcu;
 }
@@ -1449,7 +1450,8 @@ function exportkhachhang(){
         $sql = "select pro.id,pro.id_danhmuc,pro.id_khachhang,pro.type,pro.ngaytao,pro.mota,
    khachhang.ten as ten_khachhang,khachhang.diachi as diachi_khachhang,khachhang.dienthoai as dienthoai_khachhang
    ,khachhang.email as email_khachhang 
-   from #_product as pro,#_khachhang as khachhang where pro.id_khachhang=khachhang.id $where";
+   from #_product as pro LEFT JOIN #_khachhang as khachhang on pro.id_khachhang=khachhang.id where 
+   pro.id<>0 $where";
         $items=get_result($sql);
     $spreadsheet = new Spreadsheet();
     // Set document properties
@@ -1533,6 +1535,11 @@ function exportkhachhang(){
     foreach(range('A','H') as $columnID) {
         $sheet->getColumnDimension($columnID)->setAutoSize(true);
     }
+    $sheet->getColumnDimension('E')->setAutoSize(false);
+    $sheet->getColumnDimension('E')->setWidth('50');
+
+    $sheet->getColumnDimension('H')->setAutoSize(false);
+    $sheet->getColumnDimension('H')->setWidth('50');
     //set data
 
     $sheet->mergeCells('A1:H1')->setCellValue('A1', 'QUẢN LÝ KHÁCH HÀNG SỬ DỤNG DỊCH VỤ Ở GEMMATRAVEL');
@@ -1560,6 +1567,8 @@ function exportkhachhang(){
         $sheet->setCellValue('F'.$vitri, $item_danhmuc["ten"]);
         $sheet->setCellValue('G'.$vitri, date("d/m/Y",$v["ngaytao"]));
         $sheet->setCellValue('H'.$vitri, $v["mota"]);
+        $sheet->getStyle('E'.$vitri)->getAlignment()->setWrapText(true);
+        $sheet->getStyle('H'.$vitri)->getAlignment()->setWrapText(true);
         $sheet->getStyle('A'.$vitri.':'.'H'.$vitri)->applyFromArray($styleborderArray);
         $vitri++;
     }

@@ -46,7 +46,7 @@ function fns_Rand_digit($min,$max,$num)
 }
 function get_items(){
 	global $d, $items, $url_link,$totalRows , $pageSize, $offset,$paging,$urlcu,$tonggiatri,$bg;
-	$where=" where don.id_khachhang=khachhang.id "; 
+	$where=" where don.id<>0 "; 
 	if($_GET["ngaybd"]!=''){
 		$ngaybatdau = $_GET["ngaybd"];		
 	$Ngay_arr = explode("/",$ngaybatdau); // array(17,11,2010)
@@ -118,7 +118,8 @@ if($_REQUEST['nguoithu']!='')
 // $sql = "select * from #_donhang $where";	
 // $sql.=" order by id desc";
 
-$dem=get_fetch("select count(don.id) AS numrows,sum(gia) AS giarows from #_donhang as don,#_khachhang as khachhang $where");
+$dem=get_fetch("select count(don.id) AS numrows,sum(gia) AS giarows from #_donhang as 
+	don LEFT JOIN #_khachhang as khachhang on don.id_khachhang=khachhang.id $where");
 $totalRows=$dem['numrows'];
 $tonggiatri = $dem['giarows'];
 $page=$_GET['p'];
@@ -134,10 +135,11 @@ $sql = "select khachhang.ten as ten_khachhang,khachhang.diachi as diachi_khachha
    ,khachhang.email as email_khachhang,
    don.tinhtrang,don.httt,don.nguoithu,don.nhanvien,don.ngaythanhtoan,don.gia,member,don.id,don.id_khachhang,don.hansudung,
    don.ngaytao
-    from #_donhang as don,#_khachhang as khachhang $where limit $bg,$pageSize";
+    from #_donhang as don LEFT JOIN #_khachhang as khachhang on don.id_khachhang=khachhang.id $where limit $bg,$pageSize";
 
     
 $items=get_result($sql);
+
 $url_link="index.php?com=order&act=man".$urlcu;
 
 // $d->query($sql);
@@ -231,7 +233,7 @@ function delete_item(){
 }
 function exportkhachhang(){
 	global $d,$items;
-		$where=" where don.id_khachhang=khachhang.id "; 
+		$where=" where don.id<>0 "; 
 		if($_GET["ngaybd"]!=''){
 			$ngaybatdau = $_GET["ngaybd"];		
 		$Ngay_arr = explode("/",$ngaybatdau); // array(17,11,2010)
@@ -293,7 +295,7 @@ function exportkhachhang(){
    ,khachhang.email as email_khachhang,
    don.tinhtrang,don.httt,don.nguoithu,don.nhanvien,don.ngaythanhtoan,don.gia,member,don.id,don.id_khachhang,don.hansudung,
    don.ngaytao
-    from #_donhang as don,#_khachhang as khachhang $where";	
+    from #_donhang as don LEFT JOIN #_khachhang as khachhang on don.id_khachhang=khachhang.id $where";	
 	$sql.=" order by id desc";
 	$d->query($sql);
 	$items = $d->result_array();
@@ -379,7 +381,12 @@ function exportkhachhang(){
 	foreach(range('A','N') as $columnID) {
 	    $sheet->getColumnDimension($columnID)->setAutoSize(true);
 	}
-
+	$sheet->getColumnDimension('B')->setAutoSize(false);
+	$sheet->getColumnDimension('B')->setWidth('30');
+	$sheet->getColumnDimension('C')->setAutoSize(false);
+	$sheet->getColumnDimension('C')->setWidth('20');
+	$sheet->getColumnDimension('D')->setAutoSize(false);
+	$sheet->getColumnDimension('D')->setWidth('20');
 	$sheet->getColumnDimension('E')->setAutoSize(false);
 	$sheet->getColumnDimension('E')->setWidth('50');
 	//set data
@@ -435,6 +442,7 @@ function exportkhachhang(){
 		$sheet->setCellValue('M'.$vitri, $tinhtrang["trangthai"]);
 		$sheet->setCellValue('N'.$vitri, $v["ghichu"]);
 		
+		$sheet->getStyle('E'.$vitri)->getAlignment()->setWrapText(true);
 		$sheet->getStyle('N'.$vitri)->getAlignment()->setWrapText(true);
 		$sheet->getStyle('A'.$vitri.':'.'N'.$vitri)->applyFromArray($styleborderArray);
 		$vitri++;
